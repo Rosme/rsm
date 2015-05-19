@@ -8,7 +8,6 @@ SET(RSM_INC
 	${HEADER}/RSM/logger.hpp
 	)
 
-
 SET(RSM_LIB ${PROJECT_NAME})
 
 if(RSM_SHARED_LIBS)

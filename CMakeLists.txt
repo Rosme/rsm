@@ -56,6 +56,11 @@ elseif(UNIX)
 endif()
 
 add_definitions(-DRSM_EXPORTS)
+
+if(NOT RSM_SHARED_LIBS)
+	add_definitions(-DRSM_STATIC)
+endif()
+
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
 if("${CMAKE_CXX_COMPILER_ID}" MATCHES "(GNU|.*Clang)")

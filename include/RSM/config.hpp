@@ -7,7 +7,7 @@
 
 #pragma once
 
-#if (defined(_WIN32) || defined(__WIN32__)) && !defined(SFML_STATIC)
+#if (defined(_WIN32) || defined(__WIN32__)) && !defined(RSM_STATIC)
 
 	//Export Library (DLL Side)
 	#ifdef RSM_EXPORTS
