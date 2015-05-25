@@ -9,9 +9,7 @@
 
 #include <RSM/config.hpp>
 
-#include <memory>
 #include <string>
-
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -35,7 +33,7 @@ namespace RSM {
 		/// \brief Logging levels of the logger
 		///
 		////////////////////////////////////////////////////////////
-		enum LoggingLevel {
+		enum class LoggingLevel {
 			None,
 			Debug,
 			Info,
@@ -77,7 +75,7 @@ namespace RSM {
 		///
 		////////////////////////////////////////////////////////////
 		template<class T>
-		static void log(T data, const char * func, LoggingLevel level = Debug);
+		static void log(T data, const char * func, LoggingLevel level = LoggingLevel::Debug);
 
 		////////////////////////////////////////////////////////////
 		/// \brief Set the file to output the logs
@@ -102,14 +100,12 @@ namespace RSM {
 
 	private:
 		Logger();
-		friend std::unique_ptr<RSM::Logger> std::make_unique <RSM::Logger>();
 		static Logger& getLogger();
 
 		const std::string getStringLevel() const;
 		const std::string getStringLevel(LoggingLevel level) const;
 
 	private:
-		static std::unique_ptr<Logger> mInstance;
 		LoggingLevel mMaxLevel;
 		std::string mLogFile;
 		std::ofstream mFileStream;

@@ -11,8 +11,6 @@
 
 namespace RSM {
 
-	std::unique_ptr<RSM::Logger> Logger::mInstance;
-
 	void Logger::setMaxLoggingLevel(Logger::LoggingLevel level) {
 		auto& logger = getLogger();
 		logger.mMaxLevel = level;
@@ -44,11 +42,8 @@ namespace RSM {
 	}
 
 	Logger& Logger::getLogger() {
-		if (!mInstance) {
-			mInstance = std::make_unique<RSM::Logger>();
-		}
-
-		return *mInstance.get();
+		static Logger logger;
+		return logger;
 	}
 
 	const std::string Logger::getStringLevel() const {
