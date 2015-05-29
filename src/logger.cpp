@@ -27,8 +27,7 @@
 namespace RSM {
 
 	void Logger::setMaxLoggingLevel(Logger::LoggingLevel level) {
-		auto& logger = getLogger();
-		logger.mMaxLevel = level;
+		getLogger().mMaxLevel = level;
 	}
 
 	void Logger::setLogFile(const std::string& filename) {
@@ -44,8 +43,7 @@ namespace RSM {
 	}
 
 	void Logger::setOutputFlags(Logger::Output flags) {
-		auto& logger = getLogger();
-		logger.mOutputFlags = flags;
+		getLogger().mOutputFlags = flags;
 	}
 
 	Logger::Logger()
