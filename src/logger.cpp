@@ -61,7 +61,7 @@ namespace RSM {
 		return logger;
 	}
 
-	const std::string Logger::getStringLevel() const {
+	const std::string Logger::getStringMaxLevel() const {
 		return getStringLevel(getLogger().mMaxLevel);
 	}
 
@@ -69,22 +69,16 @@ namespace RSM {
 		switch (level) {
 		case Logger::LoggingLevel::None:
 			return "None";
-			break;
 		case Logger::LoggingLevel::Debug:
 			return "Debug";
-			break;
 		case Logger::LoggingLevel::Info:
 			return "Info";
-			break;
 		case Logger::LoggingLevel::Warn:
 			return "Warn";
-			break;
 		case Logger::LoggingLevel::Critical:
 			return "Critical";
-			break;
 		case Logger::LoggingLevel::Error:
 			return "Error";
-			break;
 		default:
 			return "Unknown";
 		}

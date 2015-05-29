@@ -117,7 +117,7 @@ namespace RSM {
 		Logger();
 		static Logger& getLogger();
 
-		const std::string getStringLevel() const;
+		const std::string getStringMaxLevel() const;
 		const std::string getStringLevel(LoggingLevel level) const;
 
 	private:
