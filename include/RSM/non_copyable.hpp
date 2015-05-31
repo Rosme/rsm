@@ -24,7 +24,7 @@
 
 #include <RSM/config.hpp>
 
-namespace Eve {
+namespace RSM {
 
 	////////////////////////////////////////////////////////////
 	/// \brief NonCopyable class from which class that should be not copyable will inherit
