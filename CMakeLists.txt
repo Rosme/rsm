@@ -25,7 +25,7 @@ IF("${CMAKE_VERSION}" MATCHES "3.1.0")
 	CMAKE_POLICY(SET CMP0054 OLD)
 ENDIF()
 
-project("RSMUtils")
+project("rsmutils")
 
 if(NOT CMAKE_BUILD_TYPE)
 	set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build (Debug or Release)" FORCE)

@@ -119,6 +119,7 @@ namespace RSM {
 
 		const std::string getStringMaxLevel() const;
 		const std::string getStringLevel(LoggingLevel level) const;
+		const std::string getTime() const;
 
 	private:
 		LoggingLevel mMaxLevel;
@@ -139,12 +140,12 @@ namespace RSM {
 
 			//If the flag matches the file output
 			if (static_cast<int>(logger.mOutputFlags) & static_cast<int>(Logger::Output::File)) {
-				logger.mFileStream << "[" + logger.getStringLevel(level) + "] " << func << " : " << data << '\n';
+				logger.mFileStream << "[" + logger.getStringLevel(level) + "] " << logger.getTime() << " " << func << " : " << data << '\n';
 			}
 			
 			//If the flag matches the console output
 			if (static_cast<int>(logger.mOutputFlags) & static_cast<int>(Logger::Output::Console)) {
-				std::cout << "[" + logger.getStringLevel(level) + "] " << func << " : " << data << '\n';
+				std::cout << "[" + logger.getStringLevel(level) + "] " << logger.getTime() << " " << func << " : " << data << '\n';
 			}
 		}
 	}

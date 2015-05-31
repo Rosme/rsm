@@ -23,6 +23,7 @@
 #include <RSM/logger.hpp>
 
 #include <stdexcept>
+#include <chrono>
 
 namespace RSM {
 
@@ -80,6 +81,33 @@ namespace RSM {
 		default:
 			return "Unknown";
 		}
+	}
+
+	const std::string Logger::getTime() const {
+		using namespace std::chrono;
+		typedef duration<int, std::ratio_multiply<hours::period, std::ratio<24>>::type> days;
+
+		system_clock::time_point now = system_clock::now();
+		system_clock::duration tp = now.time_since_epoch();
+		days day = duration_cast<days>(tp);
+		tp -= day;
+		hours hour = duration_cast<hours>(tp);
+		tp -= hour;
+		minutes minute = duration_cast<minutes>(tp);
+		tp -= minute;
+		seconds second = duration_cast<seconds>(tp);
+		tp -= second;
+		milliseconds millisecond = duration_cast<milliseconds>(tp);
+
+		time_t rawTimeT = system_clock::to_time_t(now);
+		tm timeInfo;
+	#ifdef WIN32
+		localtime_s(&timeInfo, &rawTimeT);
+	#else
+		localtime_r(&rawTimeT, &timeInfo);
+	#endif
+		return std::to_string(timeInfo.tm_hour - 12) + ":" + std::to_string(minute.count()) + ":"
+			+ std::to_string(second.count()) + ":" + std::to_string(millisecond.count());
 	}
 
 }
