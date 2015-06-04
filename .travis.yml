@@ -2,6 +2,7 @@ language: cpp
 
 compiler:
     - gcc
+    - clang
 
 install:
     - sudo apt-get install -qq gcc-4.8 g++-4.8
