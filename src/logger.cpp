@@ -106,7 +106,7 @@ namespace RSM {
 	#else
 		localtime_r(&rawTimeT, &timeInfo);
 	#endif
-		return std::to_string(timeInfo.tm_hour - 12) + ":" + std::to_string(minute.count()) + ":"
+		return std::to_string(timeInfo.tm_hour) + ":" + std::to_string(minute.count()) + ":"
 			+ std::to_string(second.count()) + ":" + std::to_string(millisecond.count());
 	}
 
