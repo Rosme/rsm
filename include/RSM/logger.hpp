@@ -23,6 +23,7 @@
 #pragma once
 
 #include <RSM/config.hpp>
+#include <RSM/non_copyable.hpp>
 
 #include <string>
 #include <fstream>
@@ -42,7 +43,8 @@ namespace RSM {
 	/// To log your own object, you only need to define an overload for the operator<<.
 	///
 	////////////////////////////////////////////////////////////
-	class RSM_API Logger {
+	class RSM_API Logger 
+		: public RSM::NonCopyable {
 	public:
 		////////////////////////////////////////////////////////////
 		/// \brief Logging levels of the logger
