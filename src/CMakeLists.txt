@@ -25,7 +25,7 @@ SET(RSM_SRC
 	)
 
 SET(RSM_INC
-	${HEADER}/RSM/config.hpp
+	${HEADER}/RSM/build_config.hpp
 	${HEADER}/RSM/non_copyable.hpp
 	${HEADER}/RSM/logger.hpp
 	)

@@ -22,7 +22,7 @@
 
 #pragma once
 
-#include <RSM/config.hpp>
+#include <RSM/build_config.hpp>
 #include <RSM/non_copyable.hpp>
 
 #include <string>
