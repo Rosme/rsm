@@ -20,7 +20,7 @@
 # 3. This notice may not be removed or altered from any source distribution.
 #
 
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 2.8)
 IF("${CMAKE_VERSION}" MATCHES "3.1.0")
 	CMAKE_POLICY(SET CMP0054 OLD)
 ENDIF()
