@@ -33,7 +33,7 @@
 namespace RSM {
 
 	////////////////////////////////////////////////////////////
-	/// \brief Logger utilities that will log to console and file.
+	/// \brief Logging utilities that will log to console and file.
 	///		   
 	/// The logger is represented as singleton accessible from
 	/// anywhere within an application. All function are actually static
@@ -158,5 +158,3 @@ namespace RSM {
 #define RSM_LOG_WARN(t) RSM::Logger::log(t, __func__, RSM::Logger::LoggingLevel::Warn)
 #define RSM_LOG_CRITICAL(t) RSM::Logger::log(t, __func__, RSM::Logger::LoggingLevel::Critical)
 #define RSM_LOG_ERROR(t) RSM::Logger::log(t, __func__, RSM::Logger::LoggingLevel::Error)
-
-
