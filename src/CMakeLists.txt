@@ -22,12 +22,14 @@
 
 SET(RSM_SRC
 	${SRC}/logger.cpp
+	${SRC}/config.cpp
 	)
 
 SET(RSM_INC
 	${HEADER}/RSM/build_config.hpp
 	${HEADER}/RSM/non_copyable.hpp
 	${HEADER}/RSM/logger.hpp
+	${HEADER}/RSM/config.hpp
 	)
 
 SET(RSM_LIB ${PROJECT_NAME})

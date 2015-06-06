@@ -86,8 +86,7 @@ namespace RSM {
 		/// Those flags are by default All(Console and File).
 		///
 		/// \param data Template parameter representing all the data to ouput
-		/// \param func Name of the function the log is called from. For
-		///				easier use, the macro EVE_FUNC is provided.
+		/// \param func Name of the function the log is called from
 		/// \param level The logging level of the data that is passed
 		///
 		////////////////////////////////////////////////////////////
