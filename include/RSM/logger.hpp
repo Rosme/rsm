@@ -152,6 +152,12 @@ namespace RSM {
 	}
 }
 
+#if defined(_MSC_VER)
+	#if _MSC_VER <= 1800
+		#define __func__ __FUNCTION__
+	#endif
+#endif
+
 #define RSM_LOG_DEBUG(t) RSM::Logger::log(t, __func__, RSM::Logger::LoggingLevel::Debug)
 #define RSM_LOG_INFO(t) RSM::Logger::log(t, __func__, RSM::Logger::LoggingLevel::Info)
 #define RSM_LOG_WARN(t) RSM::Logger::log(t, __func__, RSM::Logger::LoggingLevel::Warn)
