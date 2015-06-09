@@ -27,8 +27,8 @@
 
 namespace RSM {
 
-	void Logger::setMaxLoggingLevel(Logger::LoggingLevel level) {
-		getLogger().mMaxLevel = level;
+	void Logger::setMinLoggingLevel(Logger::LoggingLevel level) {
+		getLogger().mMinLevel = level;
 	}
 
 	void Logger::setLogFile(const std::string& filename) {
@@ -48,7 +48,7 @@ namespace RSM {
 	}
 
 	Logger::Logger()
-		: mMaxLevel(LoggingLevel::Error), mLogFile("log"), mOutputFlags(Output::All) {
+		: mMinLevel(LoggingLevel::Debug), mLogFile("log"), mOutputFlags(Output::All) {
 		mFileStream.open(mLogFile, std::ios::out|std::ios::trunc);
 		if (!mFileStream.is_open()) {
 			throw std::runtime_error("Impossible to create the new log file");
@@ -60,8 +60,8 @@ namespace RSM {
 		return logger;
 	}
 
-	const std::string Logger::getStringMaxLevel() const {
-		return getStringLevel(getLogger().mMaxLevel);
+	const std::string Logger::getStringMinLevel() const {
+		return getStringLevel(getLogger().mMinLevel);
 	}
 
 	const std::string Logger::getStringLevel(Logger::LoggingLevel level) const {

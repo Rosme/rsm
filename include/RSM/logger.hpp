@@ -71,13 +71,13 @@ namespace RSM {
 		};
 
 		////////////////////////////////////////////////////////////
-		/// \brief Set the maximum level that the logger should consider
+		/// \brief Set the minimum level that the logger should consider
 		///
-		/// By default, this is set to Error(the highest).
+		/// By default, this is set to Debug(the lowest).
 		///
-		/// \param level The maximum logging level the logger should consider
+		/// \param level The minimum logging level the logger should consider
 		////////////////////////////////////////////////////////////
-		static void setMaxLoggingLevel(LoggingLevel level);
+		static void setMinLoggingLevel(LoggingLevel level);
 
 		////////////////////////////////////////////////////////////
 		/// \brief A template function that logs the given data
@@ -118,12 +118,12 @@ namespace RSM {
 		Logger();
 		static Logger& getLogger();
 
-		const std::string getStringMaxLevel() const;
+		const std::string getStringMinLevel() const;
 		const std::string getStringLevel(LoggingLevel level) const;
 		const std::string getTime() const;
 
 	private:
-		LoggingLevel mMaxLevel;
+		LoggingLevel mMinLevel;
 		std::string mLogFile;
 		std::ofstream mFileStream;
 		Logger::Output mOutputFlags;
@@ -132,7 +132,7 @@ namespace RSM {
 	template<class T>
 	void Logger::log(T data, const char* func, Logger::LoggingLevel level) {
 		auto& logger = getLogger();
-		if (level <= logger.mMaxLevel && level != LoggingLevel::None) {
+		if (logger.mMinLevel <= level && logger.mMinLevel != LoggingLevel::None) {
 			// If it was determined that no output will be shown,
 			// we'll return right away from the function
 			if (logger.mOutputFlags == Output::None) {
