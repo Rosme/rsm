@@ -37,6 +37,7 @@ if(CMAKE_CONFIGURATION_TYPES)
 endif()
 
 SET(RSM_SHARED_LIBS TRUE CACHE BOOL "Build shared libraries")
+SET(RSM_BUILD_TEST FALSE CACHE BOOL "Build with test")
 
 if(WIN32)
 	set(RSM_STATIC_STD_LIBS FALSE CACHE BOOL "Use statically linked standard/runtime libraries?")
@@ -101,3 +102,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DRSM_RELEASE")
 add_subdirectory(src)
 
 install(DIRECTORY include DESTINATION .)
+
+if(RSM_BUILD_TEST)
+	add_subdirectory(test)
+endif()
