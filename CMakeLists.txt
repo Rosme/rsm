@@ -89,10 +89,6 @@ endif()
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
-if("${CMAKE_CXX_COMPILER_ID}" MATCHES "(GNU|.*Clang)")
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-endif()
-
 set(SRC ${CMAKE_CURRENT_SOURCE_DIR}/src)
 set(HEADER ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
