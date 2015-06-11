@@ -2,8 +2,10 @@ language: cpp
 
 compiler:
     - clang
+	- gcc
 
 before_script:
      - cmake .
 
-script: make
+script: 
+	- make
