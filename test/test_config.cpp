@@ -42,11 +42,11 @@ TEST_CASE("Testing config management", "[config]") {
 		REQUIRE(config.hasConfig("UintKey") == true);
 		REQUIRE(config.hasConfig("FloatKey") == true);
 
-		REQUIRE(config.save("config.txt") == true);
+		REQUIRE_NOTHROW(config.save("config.txt"));
 	}
 
 	SECTION("Loading a config file") {
-		REQUIRE(config.load("config.txt") == true);
+		REQUIRE_NOTHROW(config.load("config.txt"));
 
 		REQUIRE(config.hasConfig("StringKey") == true);
 		REQUIRE(config.hasConfig("IntKey") == true);
@@ -60,7 +60,7 @@ TEST_CASE("Testing config management", "[config]") {
 	}
 
 	SECTION("Loading a config file, change and save") {
-		REQUIRE(config.load("config.txt") == true);
+		REQUIRE_NOTHROW(config.load("config.txt"));
 
 		REQUIRE(config.hasConfig("StringKey") == true);
 		REQUIRE(config.hasConfig("IntKey") == true);
@@ -78,11 +78,11 @@ TEST_CASE("Testing config management", "[config]") {
 		config.set("FloatKey", 10.1f);
 		config.set("OtherKey", "OtherValue");
 
-		REQUIRE(config.save("config.txt") == true);
+		REQUIRE_NOTHROW(config.save("config.txt"));
 	}
 
 	SECTION("Loading a config file with new value") {
-		REQUIRE(config.load("config.txt") == true);
+		REQUIRE_NOTHROW(config.load("config.txt"));
 
 		REQUIRE(config.hasConfig("StringKey") == true);
 		REQUIRE(config.hasConfig("IntKey") == true);

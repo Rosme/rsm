@@ -76,10 +76,8 @@ namespace RSM {
 		///
 		/// \param configFile Name of the config file to load
 		///
-		/// \return True if the loading happened correctly
-		///
 		////////////////////////////////////////////////////////////
-		bool load(const std::string& configFile = "config.txt");
+		void load(const std::string& configFile = "config.txt");
 
 		////////////////////////////////////////////////////////////
 		/// \brief Saving function that save the config file
@@ -90,10 +88,8 @@ namespace RSM {
 		///
 		/// \param configFile Name of the config file to save
 		///
-		/// \return True if the saving happened correctly
-		///
 		////////////////////////////////////////////////////////////
-		bool save(const std::string& configFile = "config.txt") const;
+		void save(const std::string& configFile = "config.txt") const;
 		
 		////////////////////////////////////////////////////////////
 		/// \brief Tell if the object contains a specific config

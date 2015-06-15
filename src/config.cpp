@@ -28,7 +28,7 @@
 
 namespace RSM {
 
-	bool Config::load(const std::string& configFile) {
+	void Config::load(const std::string& configFile) {
 		std::ifstream file;
 
 		file.open(configFile, std::ios::in);
@@ -57,11 +57,9 @@ namespace RSM {
 				m_configs[line.substr(0, index)] = line.substr(index + 1);
 			}
 		}
-
-		return true;
 	}
 
-	bool Config::save(const std::string& configFile) const {
+	void Config::save(const std::string& configFile) const {
 		std::ofstream file;
 
 		file.open(configFile, std::ios::out | std::ios::trunc);
@@ -73,8 +71,6 @@ namespace RSM {
 		for(const auto& config : m_configs) {
 			file << config.first << "=" << config.second << "\n";
 		}
-
-		return true;
 	}
 
 	bool Config::hasConfig(Key& key) const {
