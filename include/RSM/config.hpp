@@ -61,7 +61,7 @@ namespace RSM {
 	class RSM_API Config 
 		: RSM::NonCopyable {
 	public:
-		typedef const std::string Key;
+		typedef std::string Key;
 
 	public:
 		////////////////////////////////////////////////////////////
@@ -106,7 +106,7 @@ namespace RSM {
 		/// \return True if the config is present, false otherwise
 		///
 		////////////////////////////////////////////////////////////
-		bool hasConfig(Key& key) const;
+		bool hasConfig(const Key& key) const;
 
 		////////////////////////////////////////////////////////////
 		/// \brief Give the amount of config stored in the config object
@@ -133,7 +133,7 @@ namespace RSM {
 		///			as a std::string
 		///
 		////////////////////////////////////////////////////////////
-		const std::string& get(Key& key, const std::string& defaultValue = "");
+		const std::string& get(const Key& key, const std::string& defaultValue = "");
 
 		////////////////////////////////////////////////////////////
 		/// \brief Return the value of a config
@@ -149,7 +149,7 @@ namespace RSM {
 		///			as an integer
 		///
 		////////////////////////////////////////////////////////////
-		const int getInt(Key& key, const int defaultValue = 0);
+		const int getInt(const Key& key, const int defaultValue = 0);
 
 		////////////////////////////////////////////////////////////
 		/// \brief Return the value of a config
@@ -165,7 +165,7 @@ namespace RSM {
 		///			as an unsigned integer
 		///
 		////////////////////////////////////////////////////////////
-		const unsigned int getUint(Key& key, const unsigned int defaultValue = 0);
+		const unsigned int getUint(const Key& key, const unsigned int defaultValue = 0);
 
 		////////////////////////////////////////////////////////////
 		/// \brief Return the value of a config
@@ -181,7 +181,7 @@ namespace RSM {
 		///			as a float
 		///
 		////////////////////////////////////////////////////////////
-		const float getFloat(Key& key, const float defaultValue = 0.f);
+		const float getFloat(const Key& key, const float defaultValue = 0.f);
 
 		////////////////////////////////////////////////////////////
 		/// \brief Return an array containing all the keys
@@ -192,7 +192,7 @@ namespace RSM {
 		/// \return std::vector containing all the keys
 		///
 		////////////////////////////////////////////////////////////
-		const std::vector<Key> getKeys() const;
+		const std::vector<Config::Key> getKeys() const;
 
 		////////////////////////////////////////////////////////////
 		/// \brief Store a std::string value in the config object
@@ -204,7 +204,7 @@ namespace RSM {
 		/// \param value The std::string value to store
 		///
 		////////////////////////////////////////////////////////////
-		void set(Key& key, const std::string& value);
+		void set(const Key& key, const std::string& value);
 
 		////////////////////////////////////////////////////////////
 		/// \brief Store a integer value in the config object
@@ -216,7 +216,7 @@ namespace RSM {
 		/// \param value The integer value to store
 		///
 		////////////////////////////////////////////////////////////
-		void set(Key& key, const int value);
+		void set(const Key& key, const int value);
 
 		////////////////////////////////////////////////////////////
 		/// \brief Store a unsigned int value in the config object
@@ -228,7 +228,7 @@ namespace RSM {
 		/// \param value The unsigned integer value to store
 		///
 		////////////////////////////////////////////////////////////
-		void set(Key& key, const unsigned int value);
+		void set(const Key& key, const unsigned int value);
 
 		////////////////////////////////////////////////////////////
 		/// \brief Store a float value in the config object
@@ -240,10 +240,10 @@ namespace RSM {
 		/// \param value The float value to store
 		///
 		////////////////////////////////////////////////////////////
-		void set(Key& key, const float value);
+		void set(const Key& key, const float value);
 
 	private:
-		typedef std::unordered_map<Key, std::string> ConfigMap;
+		typedef std::unordered_map<const Key, std::string> ConfigMap;
 		ConfigMap m_configs;
 		ConfigFileDescriptor::Ptr m_fileDescriptor;
 	};

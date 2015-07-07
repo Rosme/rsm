@@ -22,7 +22,6 @@
 
 #include <RSM/config.hpp>
 #include <RSM/logger.hpp>
-#include <RSM/config_file_descriptor.hpp>
 
 #include <cassert>
 
@@ -45,7 +44,7 @@ namespace RSM {
 		m_fileDescriptor->save(*this, configFile);
 	}
 
-	bool Config::hasConfig(Key& key) const {
+	bool Config::hasConfig(const Key& key) const {
 		return m_configs.find(key) != m_configs.end();
 	}
 
@@ -53,7 +52,7 @@ namespace RSM {
 		return m_configs.size();
 	}
 
-	const std::string& Config::get(Key& key, const std::string& defaultValue) {
+	const std::string& Config::get(const Key& key, const std::string& defaultValue) {
 		if(hasConfig(key)) {
 			return m_configs[key];
 		}
@@ -61,7 +60,7 @@ namespace RSM {
 		return defaultValue;
 	}
 
-	const int Config::getInt(Key& key, const int defaultValue) {
+	const int Config::getInt(const Key& key, const int defaultValue) {
 		if(hasConfig(key)) {
 			return std::stoi(m_configs[key]);
 		}
@@ -69,7 +68,7 @@ namespace RSM {
 		return defaultValue;
 	}
 
-	const unsigned int Config::getUint(Key& key, const unsigned int defaultValue) {
+	const unsigned int Config::getUint(const Key& key, const unsigned int defaultValue) {
 		if(hasConfig(key)) {
 			return static_cast<unsigned int>(std::stoul(m_configs[key]));
 		}
@@ -77,7 +76,7 @@ namespace RSM {
 		return defaultValue;
 	}
 
-	const float Config::getFloat(Key& key, const float defaultValue) {
+	const float Config::getFloat(const Key& key, const float defaultValue) {
 		if(hasConfig(key)) {
 			return std::stof(m_configs[key]);
 		}
@@ -86,26 +85,26 @@ namespace RSM {
 	}
 
 	const std::vector<Config::Key> Config::getKeys() const {
-		std::vector<Key> keys;
+		std::vector<Config::Key> keys;
 		for(const auto& it : m_configs) {
 			keys.push_back(it.first);
 		}
 		return keys;
 	}
 
-	void Config::set(Key& key, const std::string& value) {
+	void Config::set(const Key& key, const std::string& value) {
 		m_configs[key] = value;
 	}
 
-	void Config::set(Key& key, const int value) {
+	void Config::set(const Key& key, const int value) {
 		m_configs[key] = std::to_string(value);
 	}
 
-	void Config::set(Key& key, const unsigned int value) {
+	void Config::set(const Key& key, const unsigned int value) {
 		m_configs[key] = std::to_string(value);
 	}
 
-	void Config::set(Key& key, const float value) {
+	void Config::set(const Key& key, const float value) {
 		m_configs[key] = std::to_string(value);
 	}
 }
