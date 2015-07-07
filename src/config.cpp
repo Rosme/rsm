@@ -22,55 +22,27 @@
 
 #include <RSM/config.hpp>
 #include <RSM/logger.hpp>
+#include <RSM/config_file_descriptor.hpp>
 
-#include <stdexcept>
-#include <fstream>
+#include <cassert>
 
 namespace RSM {
 
-	void Config::load(const std::string& configFile) {
-		std::ifstream file;
+	Config::Config() 
+		: m_fileDescriptor(ConfigFileDescriptor::getDefaultDescriptor()) {}
 
-		file.open(configFile, std::ios::in);
-		if(!file.is_open()) {
-			RSM_LOG_ERROR("Could not open config file : " + configFile);
-			throw std::runtime_error("Could not open config file : " + configFile);
-		}
-
-		std::string line;
-		while(std::getline(file, line)) {
-			//Empty line, we skip
-			if(line.size() == 0) {
-				continue;
-			}
-
-			//Let's see if the line is to be ignored
-			if(line[0] == ';' || line[0] == '#') {
-				RSM_LOG_INFO("Ignoring line : " + line);
-				continue;
-			}
-
-			const auto& index = line.find('=');
-			//Making sure we have a valid config line
-			if(index != std::string::npos) {
-				RSM_LOG_INFO("Loading config line : " + line);
-				m_configs[line.substr(0, index)] = line.substr(index + 1);
-			}
-		}
+	void Config::setFileDescriptor(ConfigFileDescriptor::Ptr configFileDescriptor) {
+		m_fileDescriptor = std::move(configFileDescriptor);
 	}
 
-	void Config::save(const std::string& configFile) const {
-		std::ofstream file;
+	void Config::load(const std::string& configFile) {
+		assert(m_fileDescriptor && "No file descriptor set");
+		m_fileDescriptor->load(*this, configFile);
+	}
 
-		file.open(configFile, std::ios::out | std::ios::trunc);
-		if(!file.is_open()) {
-			RSM_LOG_ERROR("Could not open config file : " + configFile);
-			throw std::runtime_error("Could not open config file : " + configFile);
-		}
-
-		for(const auto& config : m_configs) {
-			file << config.first << "=" << config.second << "\n";
-		}
+	void Config::save(const std::string& configFile) {
+		assert(m_fileDescriptor && "No file descriptor set");
+		m_fileDescriptor->save(*this, configFile);
 	}
 
 	bool Config::hasConfig(Key& key) const {
@@ -111,6 +83,14 @@ namespace RSM {
 		}
 
 		return defaultValue;
+	}
+
+	const std::vector<Config::Key> Config::getKeys() const {
+		std::vector<Key> keys;
+		for(const auto& it : m_configs) {
+			keys.push_back(it.first);
+		}
+		return keys;
 	}
 
 	void Config::set(Key& key, const std::string& value) {

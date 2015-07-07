@@ -23,6 +23,7 @@
 SET(RSM_SRC
 	${SRC}/logger.cpp
 	${SRC}/config.cpp
+	${SRC}/config_file_descriptor.cpp
 	)
 
 SET(RSM_INC
@@ -30,6 +31,7 @@ SET(RSM_INC
 	${HEADER}/RSM/non_copyable.hpp
 	${HEADER}/RSM/logger.hpp
 	${HEADER}/RSM/config.hpp
+	${HEADER}/RSM/config_file_descriptor.hpp
 	)
 
 SET(RSM_LIB ${PROJECT_NAME})

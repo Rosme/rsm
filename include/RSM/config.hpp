@@ -24,10 +24,13 @@
 
 #include <RSM/build_config.hpp>
 #include <RSM/non_copyable.hpp>
+#include <RSM/config_file_descriptor.hpp>
 
 #include <unordered_map>
 #include <string>
 #include <functional>
+#include <vector>
+#include <memory>
 
 // Specialisation of std::hash
 namespace std {
@@ -65,7 +68,9 @@ namespace RSM {
 		/// \brief Default constructor
 		///
 		////////////////////////////////////////////////////////////
-		explicit Config() = default;
+		explicit Config();
+
+		void setFileDescriptor(ConfigFileDescriptor::Ptr configFileDescriptor);
 
 		////////////////////////////////////////////////////////////
 		/// \brief Loading function that loads the config file
@@ -89,7 +94,7 @@ namespace RSM {
 		/// \param configFile Name of the config file to save
 		///
 		////////////////////////////////////////////////////////////
-		void save(const std::string& configFile = "config.txt") const;
+		void save(const std::string& configFile = "config.txt");
 		
 		////////////////////////////////////////////////////////////
 		/// \brief Tell if the object contains a specific config
@@ -179,6 +184,17 @@ namespace RSM {
 		const float getFloat(Key& key, const float defaultValue = 0.f);
 
 		////////////////////////////////////////////////////////////
+		/// \brief Return an array containing all the keys
+		///
+		/// Return an std::vector containing all the keys currently
+		/// stored in the config.
+		///
+		/// \return std::vector containing all the keys
+		///
+		////////////////////////////////////////////////////////////
+		const std::vector<Key> getKeys() const;
+
+		////////////////////////////////////////////////////////////
 		/// \brief Store a std::string value in the config object
 		///
 		/// Store or replace a std::string value in the config object
@@ -229,6 +245,7 @@ namespace RSM {
 	private:
 		typedef std::unordered_map<Key, std::string> ConfigMap;
 		ConfigMap m_configs;
+		ConfigFileDescriptor::Ptr m_fileDescriptor;
 	};
 
 }
