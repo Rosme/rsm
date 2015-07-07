@@ -40,7 +40,7 @@ namespace RSM {
 
 	public:
 		ConfigFileDescriptor() = default;
-		virtual ~ConfigFileDescriptor() = default;
+		virtual ~ConfigFileDescriptor();
 
 		static ConfigFileDescriptor::Ptr getDefaultDescriptor();
 

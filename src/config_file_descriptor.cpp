@@ -56,8 +56,10 @@ namespace RSM {
 		}
 	};
 
-
+	
 	ConfigFileDescriptor::Ptr ConfigFileDescriptor::getDefaultDescriptor() {
 		return std::unique_ptr<DefaultFileDescriptor>(new DefaultFileDescriptor());
 	}
+
+	ConfigFileDescriptor::~ConfigFileDescriptor() = default;
 }
