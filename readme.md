@@ -1,6 +1,6 @@
 # rsm_utils
 
-rsm_utils is a utility library that contains different utility for different purposes. It`s basically different tools I tend to reprogram with every object that I decided to centralise in a library. It is programmed in C++ and requires C++11.
+rsm_utils is a utility library that contains different utility for different purposes. It`s basically different tools I tend to reprogram with every project that I decided to centralise in a library. It is programmed in C++ and requires C++11.
 
 ### Build Status
 
