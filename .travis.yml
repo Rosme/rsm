@@ -5,7 +5,8 @@ compiler:
     - gcc
 
 before_script:
-     - cmake .
+     - cmake . -DRSM_BUILD_TEST=True
 
-script: 
+script:
     - make
+    - ./test/Test
