@@ -24,23 +24,41 @@ namespace RSM {
     
     template<class T>
     Matrix<T>::Matrix(const std::size_t width, const std::size_t height, const T& default_value)
-        : m_width(width)
+        : m_data(nullptr)
+        , m_width(width)
         , m_height(height) {
             
-            m_data = new T[width*height];
-            
-            for(int i = 0; i < width; ++i) {
-                for(int j = 0; j < height; ++j) {
-                    m_data[width * i + j] = default_value;
-                }
+        m_data = new T[width*height]();
+        
+        for(int i = 0; i < width; ++i) {
+            for(int j = 0; j < height; ++j) {
+                m_data[height * i + j] = default_value;
             }
         }
+    }
+        
+    template<class T>
+    Matrix<T>::Matrix(const Matrix<T>& other)
+        : m_data(nullptr)
+        , m_width(other.m_width)
+        , m_height(other.m_height) {
+        
+        m_data = new T[m_width*m_height]();
+        std::copy(other.m_data, other.m_data + m_width*m_height, m_data);
+    }
+    
+    template<class T>
+    Matrix<T>& Matrix<T>::operator=(Matrix<T> other) {
+        swap(*this, other);
+        
+        return *this;
+    }
     
     template<class T>
     Matrix<T>::~Matrix() {
         delete[] m_data;
     }
-        
+
     template<class T>
     const T* Matrix<T>::data() const {
         return m_data;
@@ -53,11 +71,19 @@ namespace RSM {
     
     template<class T>
     T& Matrix<T>::operator()(std::size_t x, std::size_t y) {
+        assert(x >= 0 && "X index is below 0");
+        assert(x <= m_height && "X index is out of bounds");
+        assert(y >= 0 && "Y index is below 0");
+        assert(y < m_width && "Y index is out of bounds");
         return m_data[m_height * y + x];
     }
     
     template<class T>
     const T& Matrix<T>::operator()(std::size_t x, std::size_t y) const {
+        assert(x >= 0 && "X index is below 0");
+        assert(x < m_height && "X index is out of bounds");
+        assert(y >= 0 && "Y index is below 0");
+        assert(y < m_width && "Y index is out of bounds");
         return m_data[m_height * y + x];
     }
 }

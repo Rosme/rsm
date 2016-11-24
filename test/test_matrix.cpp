@@ -23,27 +23,115 @@
 #include "catch.hpp"
 
 #include <RSM/matrix.hpp>
+#include <string>
 
 TEST_CASE("Testing Matrix", "[matrix]") {
-    RSM::Matrix<int> matrix(5, 10, 1);
     
-    SECTION("Getting Data") {
+    SECTION("Creating a integer matrix without default intialization") {
+        RSM::Matrix<int> matrix(5, 10);
         
-        int l = 0;
-        for(int i = 0; i < 5; ++i) {
-            for(int j = 0; j < 10; ++j) {
-                matrix(j, i) = l;
+        int l = 1;
+        for(std::size_t i = 0; i < matrix.height(); ++i) {
+            for(std::size_t j = 0; j < matrix.width(); ++j) {
+                matrix(i, j) = l;
                 l++;
             }
         }
-        printf("\n");
+       
+        l = 1;
+        for(std::size_t i = 0; i < matrix.height(); ++i) {
+            for(std::size_t j = 0; j < matrix.width(); ++j) {
+                REQUIRE(matrix(i, j) == l);
+                l++;
+            }
+        }
+    }
+    
+    SECTION("Creating a integer matrix with default intialization") {
+        RSM::Matrix<int> matrix(5, 10, 7);
         
-        for(int i = 0; i < matrix.width(); ++i) {
-            for(int j = 0; j < 10; ++j) {
-                printf("%d ", matrix(j,i));
+        for(std::size_t i = 0; i < matrix.height(); ++i) {
+            for(std::size_t j = 0; j < matrix.width(); ++j) {
+                REQUIRE(matrix(i, j) == 7);
+            }
+        }
+    }
+    
+    SECTION("Creating a string matrix without default intialization") {
+        RSM::Matrix<std::string> matrix(5, 10);
+        
+        for(std::size_t i = 0; i < matrix.height(); ++i) {
+            for(std::size_t j = 0; j < matrix.width(); ++j) {
+                matrix(i, j) = "Test";
             }
         }
         
-        REQUIRE(5 == 5);
+        for(std::size_t i = 0; i < matrix.height(); ++i) {
+            for(std::size_t j = 0; j < matrix.width(); ++j) {
+                REQUIRE(matrix(i, j) == "Test");
+            }
+        }
+    }
+    
+    SECTION("Creating a string matrix with default intialization") {
+        RSM::Matrix<std::string> matrix(5, 10, "Test");
+        
+        for(std::size_t i = 0; i < matrix.height(); ++i) {
+            for(std::size_t j = 0; j < matrix.width(); ++j) {
+                REQUIRE(matrix(i, j) == "Test");
+            }
+        }
+    }
+    
+    SECTION("Copy construction integer matrix") {
+        RSM::Matrix<int> matrix(5, 10, 7);
+        RSM::Matrix<int> copy(matrix);
+        
+        REQUIRE(copy.width() == 5);
+        REQUIRE(copy.height() == 10);
+        REQUIRE(copy(0,0) == 7);
+        REQUIRE(matrix.width() == 5);
+        REQUIRE(matrix.height() == 10);
+        REQUIRE(matrix(0,0) == 7);
+    }
+    
+    SECTION("Copy assigment integer matrix") {
+        RSM::Matrix<int> matrix(5, 10, 7);
+        RSM::Matrix<int> copy(2, 8, 5);
+        
+        copy = matrix;
+        
+        REQUIRE(copy.width() == 5);
+        REQUIRE(copy.height() == 10);
+        REQUIRE(copy(0,0) == 7);
+        REQUIRE(matrix.width() == 5);
+        REQUIRE(matrix.height() == 10);
+        REQUIRE(matrix(0,0) == 7);
+    }
+    
+    SECTION("Copy construction string matrix") {
+        RSM::Matrix<std::string> matrix(5, 10, "Test");
+        RSM::Matrix<std::string> copy(matrix);
+        
+        REQUIRE(copy.width() == 5);
+        REQUIRE(copy.height() == 10);
+        REQUIRE(copy(0,0) == "Test");
+        REQUIRE(matrix.width() == 5);
+        REQUIRE(matrix.height() == 10);
+        REQUIRE(matrix(0,0) == "Test");
+    }
+    
+    SECTION("Copy assigment string matrix") {
+        RSM::Matrix<std::string> matrix(5, 10, "Test");
+        RSM::Matrix<std::string> copy(2, 8, "Test2");
+        
+        copy = matrix;
+        
+        REQUIRE(copy.width() == 5);
+        REQUIRE(copy.height() == 10);
+        REQUIRE(copy(0,0) == "Test");
+        REQUIRE(matrix.width() == 5);
+        REQUIRE(matrix.height() == 10);
+        REQUIRE(matrix(0,0) == "Test");
     }
 }

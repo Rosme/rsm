@@ -23,6 +23,9 @@
 #pragma once
 
 #include <cstdint>
+#include <utility>
+#include <cassert>
+#include <algorithm>
 
 namespace RSM {
 
@@ -30,7 +33,10 @@ namespace RSM {
     class Matrix {
     public:
         Matrix(const std::size_t width, const std::size_t height, const T& default_value = T{});
+        Matrix(const Matrix& other);
         ~Matrix();
+        
+        Matrix& operator=(Matrix other);
         
         const T* data() const;
         T* data();
@@ -41,12 +47,17 @@ namespace RSM {
         T& operator()(std::size_t x, std::size_t y);
         const T& operator()(std::size_t x, std::size_t y) const;
         
+        friend void swap(Matrix& first, Matrix& second) {
+            std::swap(first.m_data, second.m_data);
+            std::swap(first.m_width, second.m_width);
+            std::swap(first.m_height, second.m_height);
+        }
+        
     private:
         T* m_data;
         std::size_t m_width;
         std::size_t m_height;
     };
-
 }
 
 #include "matrix.inl"
