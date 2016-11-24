@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2015 Jean-Sébastien Fauteux
+* Copyright (c) 2016 Jean-SŽbastien Fauteux
 *
 * This software is provided 'as-is', without any express or implied warranty.
 * In no event will the authors be held liable for any damages arising from
@@ -70,6 +70,13 @@ namespace RSM {
 		////////////////////////////////////////////////////////////
 		explicit Config();
 
+        ////////////////////////////////////////////////////////////
+        /// \brief Set the config file descriptor used to load the config
+        ///
+        /// This function set the config file descriptor to be used to load
+        /// a config file.
+        ///
+        ////////////////////////////////////////////////////////////
 		void setFileDescriptor(ConfigFileDescriptor::Ptr configFileDescriptor);
 
 		////////////////////////////////////////////////////////////

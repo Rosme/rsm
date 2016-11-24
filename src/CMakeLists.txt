@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2015 Jean-Sébastien Fauteux
+# Copyright (c) 2016 Jean-SŽbastien Fauteux
 #
 # This software is provided 'as-is', without any express or implied warranty. 
 # In no event will the authors be held liable for any damages arising from 
@@ -32,6 +32,8 @@ SET(RSM_INC
 	${HEADER}/RSM/logger.hpp
 	${HEADER}/RSM/config.hpp
 	${HEADER}/RSM/config_file_descriptor.hpp
+    ${HEADER}/RSM/matrix.hpp
+    ${HEADER}/RSM/matrix.inl
 	)
 
 SET(RSM_LIB ${PROJECT_NAME})
