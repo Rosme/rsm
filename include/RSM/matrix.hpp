@@ -32,8 +32,9 @@ namespace RSM {
     template<class T>
     class Matrix {
     public:
-        Matrix(const std::size_t width, const std::size_t height, const T& default_value = T{});
+        Matrix(const std::size_t width = 0, const std::size_t height = 0, const T& default_value = T{});
         Matrix(const Matrix& other);
+        Matrix(Matrix&& other);
         ~Matrix();
         
         Matrix& operator=(Matrix other);

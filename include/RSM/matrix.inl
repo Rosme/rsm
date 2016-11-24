@@ -28,7 +28,9 @@ namespace RSM {
         , m_width(width)
         , m_height(height) {
             
-        m_data = new T[width*height]();
+        if(width > 0 && height > 0) {
+            m_data = new T[width*height]();
+        }
         
         for(int i = 0; i < width; ++i) {
             for(int j = 0; j < height; ++j) {
@@ -43,8 +45,19 @@ namespace RSM {
         , m_width(other.m_width)
         , m_height(other.m_height) {
         
-        m_data = new T[m_width*m_height]();
-        std::copy(other.m_data, other.m_data + m_width*m_height, m_data);
+        if(m_width > 0 && m_height > 0) {
+            m_data = new T[m_width*m_height]();
+            std::copy(other.m_data, other.m_data + m_width*m_height, m_data);
+        }
+    }
+    
+    template<class T>
+    Matrix<T>::Matrix(Matrix&& other) {
+        m_data = std::move(other.m_data);
+        m_width = std::move(other.m_width);
+        m_height = std::move(other.m_height);
+        
+        other.m_data = nullptr;
     }
     
     template<class T>
@@ -71,6 +84,7 @@ namespace RSM {
     
     template<class T>
     T& Matrix<T>::operator()(std::size_t x, std::size_t y) {
+        assert(m_data);
         assert(x >= 0 && "X index is below 0");
         assert(x <= m_height && "X index is out of bounds");
         assert(y >= 0 && "Y index is below 0");
@@ -80,6 +94,7 @@ namespace RSM {
     
     template<class T>
     const T& Matrix<T>::operator()(std::size_t x, std::size_t y) const {
+        assert(m_data);
         assert(x >= 0 && "X index is below 0");
         assert(x < m_height && "X index is out of bounds");
         assert(y >= 0 && "Y index is below 0");

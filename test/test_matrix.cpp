@@ -134,4 +134,44 @@ TEST_CASE("Testing Matrix", "[matrix]") {
         REQUIRE(matrix.height() == 10);
         REQUIRE(matrix(0,0) == "Test");
     }
+    
+    SECTION("Move construction integer matrix") {
+        RSM::Matrix<int> matrix(5, 10, 7);
+        RSM::Matrix<int> moved(std::move(matrix));
+        
+        REQUIRE(moved.width() == 5);
+        REQUIRE(moved.height() == 10);
+        REQUIRE(moved(0,0) == 7);
+    }
+    
+    SECTION("Move assignment integer matrix") {
+        RSM::Matrix<int> matrix(5, 10, 7);
+        RSM::Matrix<int> moved;
+        
+        moved = std::move(matrix);
+        
+        REQUIRE(moved.width() == 5);
+        REQUIRE(moved.height() == 10);
+        REQUIRE(moved(0,0) == 7);
+    }
+    
+    SECTION("Move construction string matrix") {
+        RSM::Matrix<std::string> matrix(5, 10, "Test");
+        RSM::Matrix<std::string> moved(std::move(matrix));
+        
+        REQUIRE(moved.width() == 5);
+        REQUIRE(moved.height() == 10);
+        REQUIRE(moved(0,0) == "Test");
+    }
+    
+    SECTION("Move assignment string matrix") {
+        RSM::Matrix<std::string> matrix(5, 10, "Test");
+        RSM::Matrix<std::string> moved;
+        
+        moved = std::move(matrix);
+        
+        REQUIRE(moved.width() == 5);
+        REQUIRE(moved.height() == 10);
+        REQUIRE(moved(0,0) == "Test");
+    }
 }
