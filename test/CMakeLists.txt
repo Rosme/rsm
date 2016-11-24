@@ -29,6 +29,7 @@ SET(TEST_INC
 SET(TEST_TESTS
 	main.cpp
 	test_config.cpp
+    test_matrix.cpp
 	)
 
 add_executable("Test" ${TEST_INC} ${TEST_TESTS})
