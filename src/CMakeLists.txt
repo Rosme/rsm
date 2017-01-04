@@ -34,6 +34,8 @@ SET(RSM_INC
 	${HEADER}/RSM/config_file_descriptor.hpp
     ${HEADER}/RSM/matrix.hpp
     ${HEADER}/RSM/matrix.inl
+	${HEADER}/RSM/timer.hpp
+	${HEADER}/RSM/timer.inl
 	)
 
 SET(RSM_LIB ${PROJECT_NAME})

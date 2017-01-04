@@ -163,4 +163,4 @@ namespace RSM {
     };
 }
 
-#include "matrix.inl"
+#include <RSM/matrix.inl>
