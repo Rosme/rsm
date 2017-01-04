@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2016 Jean-Sébastien Fauteux
+* Copyright (c) 2017 Jean-Sébastien Fauteux
 *
 * This software is provided 'as-is', without any express or implied warranty. 
 * In no event will the authors be held liable for any damages arising from 
@@ -22,8 +22,6 @@
 
 #pragma once
 
-#include <RSM/build_config.hpp>
-
 #include <cstdint>
 #include <utility>
 #include <cassert>
@@ -38,7 +36,7 @@ namespace RSM {
     /// The access to the index is done using the operator().
     ////////////////////////////////////////////////////////////
     template<class T>
-    class RSM_API Matrix {
+    class Matrix {
     public:
         ////////////////////////////////////////////////////////////
         /// \brief Constructor
@@ -163,4 +161,4 @@ namespace RSM {
     };
 }
 
-#include "matrix.inl"
+#include <RSM/matrix.inl>

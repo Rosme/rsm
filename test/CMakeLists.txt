@@ -30,7 +30,7 @@ SET(TEST_TESTS
 	main.cpp
 	test_config.cpp
     test_matrix.cpp
+	test_timer.cpp
 	)
 
 add_executable("Test" ${TEST_INC} ${TEST_TESTS})
-target_link_libraries("Test" rsmutils)

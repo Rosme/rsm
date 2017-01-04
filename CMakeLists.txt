@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2015 Jean-Sébastien Fauteux
+# Copyright (c) 2017 Jean-Sébastien Fauteux
 #
 # This software is provided 'as-is', without any express or implied warranty. 
 # In no event will the authors be held liable for any damages arising from 
@@ -36,36 +36,9 @@ if(CMAKE_CONFIGURATION_TYPES)
 	mark_as_advanced(CMAKE_CONFIGURATION_TYPES)
 endif()
 
-SET(RSM_SHARED_LIBS TRUE CACHE BOOL "Build shared libraries")
 SET(RSM_BUILD_TEST FALSE CACHE BOOL "Build with test")
 
-if(WIN32)
-	set(RSM_STATIC_STD_LIBS FALSE CACHE BOOL "Use statically linked standard/runtime libraries?")
-
-	# Using TDM compiler
-	if(CMAKE_COMPILER_IS_GNUCXX)
-		execute_process(COMMAND "${CMAKE_CXX_COMPILER}" "--version" OUTPUT_VARIABLE GCC_COMPILER_VERSION)
-		string(REGEX MATCHALL ".*(tdm[64]*-[1-9]).*" COMPILER_GCC_TDM "${GCC_COMPILER_VERSION}")
-	endif()
-	
-	# Compiler flags
-	if(RSM_STATIC_STD_LIBS)
-		if(RSM_SHARED_LIBS)
-			message("\n-> EVE_STATIC_STD_LIBS and EVE_SHARED_LIBS are not compatible.")
-			message("-> They lead to multiple runtime environments which result in undefined behavior.\n")
-		elseif(MSVC)
-			foreach(flag CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE)
-				if(${flag} MATCHES "/MD")
-					string(REGEX REPLACE "/MD" "/MT" ${flag} "${${flag}}")
-				endif()
-			endforeach()
-		elseif(CMAKE_COMPILER_IS_GNUCXX AND NOT COMPILER_GCC_TDM)
-			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc -static-libstdc++")
-		endif()
-	elseif(COMPILER_GCC_TDM)
-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -shared-libgcc -shared-libstdc++")
-	endif()
-elseif(UNIX)
+if(UNIX)
 	include(CheckCXXCompilerFlag)
 	check_cxx_compiler_flag("-std=c++14" COMPILER_SUPPORTS_CXX14)
 	check_cxx_compiler_flag("-std=c++11" COMPILER_SUPPORTS_CXX11)
@@ -79,7 +52,7 @@ elseif(UNIX)
 	else()
 		message(STATUS "The Compiler ${CMAKE_CXX_COMPILER} has not enough C++11 Support.")
 	endif()
-endif()
+endif(UNIX)
 
 add_definitions(-DRSM_EXPORTS)
 
@@ -95,9 +68,20 @@ set(HEADER ${CMAKE_CURRENT_SOURCE_DIR}/include)
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DRSM_DEBUG")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DRSM_RELEASE")
 
-add_subdirectory(src)
+SET(RSM_INC
+	${HEADER}/RSM/logger.hpp
+	${HEADER}/RSM/config.hpp
+	${HEADER}/RSM/config_file_descriptor.hpp
+    ${HEADER}/RSM/matrix.hpp
+    ${HEADER}/RSM/matrix.inl
+	${HEADER}/RSM/timer.hpp
+	${HEADER}/RSM/timer.inl
+	)
 
-install(DIRECTORY include DESTINATION .)
+SET(RSM_LIB ${PROJECT_NAME})
+
+add_library(${PROJECT_NAME} STATIC ${RSM_INC})
+set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
 if(RSM_BUILD_TEST)
 	add_subdirectory(test)

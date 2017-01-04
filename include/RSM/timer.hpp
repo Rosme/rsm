@@ -20,5 +20,41 @@
 * 3. This notice may not be removed or altered from any source distribution.
 */
 
-#define CATCH_CONFIG_MAIN
-#include "catch.hpp"
+#include <functional>
+#include <chrono>
+#include <thread>
+#include <condition_variable>
+
+namespace RSM {
+
+	template<class Timeout, class Interrupt>
+	class Timer {
+	public:
+		Timer();
+		Timer(const Timer&) = delete;
+		Timer& operator=(const Timer&) = delete;
+
+		void start(std::chrono::milliseconds length);
+
+		void setTimeoutFunction(const std::function<Timeout>& function);
+		void setInterruptFunction(const std::function<Interrupt>& function);
+
+		void interrupt();
+
+		const bool isDone() const;
+
+	private:
+		void priv_start(std::chrono::milliseconds length);
+
+	private:
+		std::function<Timeout> m_timeoutFunction;
+		std::function<Interrupt> m_interruptFunction;
+		std::thread m_thread;
+		std::condition_variable m_cv;
+		std::mutex m_mutex;
+		bool m_done;
+	};
+
+}
+
+#include <RSM/timer.inl>
