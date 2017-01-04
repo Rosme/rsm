@@ -22,8 +22,6 @@
 
 #pragma once
 
-#include <RSM/build_config.hpp>
-
 #include <cstdint>
 #include <utility>
 #include <cassert>
@@ -38,7 +36,7 @@ namespace RSM {
     /// The access to the index is done using the operator().
     ////////////////////////////////////////////////////////////
     template<class T>
-    class RSM_API Matrix {
+    class Matrix {
     public:
         ////////////////////////////////////////////////////////////
         /// \brief Constructor

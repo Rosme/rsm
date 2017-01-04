@@ -20,9 +20,6 @@
 * 3. This notice may not be removed or altered from any source distribution.
 */
 
-#include <RSM/build_config.hpp>
-#include <RSM/non_copyable.hpp>
-
 #include <functional>
 #include <chrono>
 #include <thread>
@@ -31,10 +28,11 @@
 namespace RSM {
 
 	template<class Timeout, class Interrupt>
-	class RSM_API Timer
-		: RSM::NonCopyable {
+	class Timer {
 	public:
 		Timer();
+		Timer(const Timer&) = delete;
+		Timer& operator=(const Timer&) = delete;
 
 		void start(std::chrono::milliseconds length);
 

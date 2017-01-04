@@ -31,7 +31,8 @@ TEST_CASE("Testing Timer", "[timer]") {
 
 		timer.start(std::chrono::milliseconds(1000));
 
-		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+		//Sleeping for 1200 instead of 1000 in case threading condition is not precise
+		std::this_thread::sleep_for(std::chrono::milliseconds(1200));
 
 		REQUIRE(timer.isDone());
 	}

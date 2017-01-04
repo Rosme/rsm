@@ -34,4 +34,3 @@ SET(TEST_TESTS
 	)
 
 add_executable("Test" ${TEST_INC} ${TEST_TESTS})
-target_link_libraries("Test" rsmutils)
