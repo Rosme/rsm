@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2017 Jean-Sébastien Fauteux
+# Copyright (c) 2017 Jean-Sï¿½bastien Fauteux
 #
 # This software is provided 'as-is', without any express or implied warranty. 
 # In no event will the authors be held liable for any damages arising from 
@@ -36,7 +36,7 @@ if(CMAKE_CONFIGURATION_TYPES)
 	mark_as_advanced(CMAKE_CONFIGURATION_TYPES)
 endif()
 
-SET(RSM_BUILD_TEST FALSE CACHE BOOL "Build with test")
+SET(RSM_BUILD_TEST TRUE CACHE BOOL "Build with test")
 
 if(UNIX)
 	include(CheckCXXCompilerFlag)

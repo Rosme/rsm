@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2017 Jean-Sébastien Fauteux
+* Copyright (c) 2017 Jean-Sï¿½bastien Fauteux
 *
 * This software is provided 'as-is', without any express or implied warranty.
 * In no event will the authors be held liable for any damages arising from
@@ -75,12 +75,12 @@ TEST_CASE("Testing Timer", "[timer]") {
 		RSM::Timer<void(), void()> timer;
 
 		timer.setTimeoutFunction(std::bind([&]() {
-			isDone = true;
+            timer.start(std::chrono::milliseconds(1000));
+            timer.interrupt();
 		}));
 
 		timer.setInterruptFunction(std::bind([&]() {
-			timer.start(std::chrono::milliseconds(1000));
-			timer.interrupt();
+			isDone = true;
 		}));
 
 		timer.start(std::chrono::milliseconds(1000));
