@@ -48,13 +48,15 @@ TEST_CASE("Testing Timer", "[timer]") {
 
         timer.start(std::chrono::milliseconds(1000));
 
-        while(!timer.isDone());
+        while(!timer.isDone()) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(50));
+        }
 
         REQUIRE(isDone);
     }
 
     SECTION("Creating a timer with interrupt callback") {
-        bool isDone = false;
+        bool isDone = true;
 
         RSM::Timer<void(), void()> timer;
 
@@ -85,7 +87,31 @@ TEST_CASE("Testing Timer", "[timer]") {
 
         timer.start(std::chrono::milliseconds(1000));
 
-        while(!isDone);
+        while(!isDone) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(50));
+        }
+
+        REQUIRE(isDone);
+    }
+
+    SECTION("Starting a timer already started") {
+        bool isDone = false;
+
+        RSM::Timer<void(), void()> timer;
+
+        timer.setTimeoutFunction(std::bind([&]() {
+            isDone = true;
+        }));
+
+        timer.start(std::chrono::milliseconds(1000));
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+
+        timer.start(std::chrono::milliseconds(1000));
+
+        while(!timer.isDone()) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(50));
+        }
 
         REQUIRE(isDone);
     }

@@ -51,7 +51,7 @@ namespace RSM {
 		std::function<Interrupt> m_interruptFunction;
 		std::thread m_thread;
 		std::condition_variable m_cv;
-		std::mutex m_mutex;
+		std::mutex m_cvMutex;
 		bool m_done;
 	};
 

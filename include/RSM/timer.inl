@@ -22,52 +22,52 @@
 
 namespace RSM {
 
-	template<class Timeout, class Interrupt>
-	Timer<Timeout, Interrupt>::Timer()
-		: m_done(false) {}
+    template<class Timeout, class Interrupt>
+    Timer<Timeout, Interrupt>::Timer()
+        : m_done(false) {}
 
 
-	template<class Timeout, class Interrupt>
-	void Timer<Timeout, Interrupt>::start(std::chrono::milliseconds length) {
-		m_done = false;
-		m_thread = std::thread(&Timer::priv_start, this, length);
-		m_thread.detach();
-	}
+    template<class Timeout, class Interrupt>
+    void Timer<Timeout, Interrupt>::start(std::chrono::milliseconds length) {
+        m_done = false;
+        m_thread = std::thread(&Timer::priv_start, this, length);
+        m_thread.detach();
+    }
 
-	template<class Timeout, class Interrupt>
-	void Timer<Timeout, Interrupt>::setTimeoutFunction(const std::function<Timeout>& function) {
-		m_timeoutFunction = function;
-	}
+    template<class Timeout, class Interrupt>
+    void Timer<Timeout, Interrupt>::setTimeoutFunction(const std::function<Timeout>& function) {
+        m_timeoutFunction = function;
+    }
 
-	template<class Timeout, class Interrupt>
-	void Timer<Timeout, Interrupt>::setInterruptFunction(const std::function<Interrupt>& function) {
-		m_interruptFunction = function;
-	}
+    template<class Timeout, class Interrupt>
+    void Timer<Timeout, Interrupt>::setInterruptFunction(const std::function<Interrupt>& function) {
+        m_interruptFunction = function;
+    }
 
-	template<class Timeout, class Interrupt>
-	void Timer<Timeout, Interrupt>::interrupt() {
-		m_done = true;
-		m_cv.notify_all();
-	}
+    template<class Timeout, class Interrupt>
+    void Timer<Timeout, Interrupt>::interrupt() {
+        m_done = true;
+        m_cv.notify_all();
+    }
 
-	template<class Timeout, class Interrupt>
-	const bool Timer<Timeout, Interrupt>::isDone() const {
-		return m_done;
-	}
+    template<class Timeout, class Interrupt>
+    const bool Timer<Timeout, Interrupt>::isDone() const {
+        return m_done;
+    }
 
-	template<class Timeout, class Interrupt>
-	void Timer<Timeout, Interrupt>::priv_start(std::chrono::milliseconds length) {
-		std::unique_lock<std::mutex> lock(m_mutex);
-		if(m_cv.wait_for(lock, length, [this] {return m_done; })) {
-			if(m_interruptFunction) {
-				m_interruptFunction();
-			}
-		} else {
-			m_done = true;
-			if(m_timeoutFunction) {
-				m_timeoutFunction();
-			}
-		}
-	}
+    template<class Timeout, class Interrupt>
+    void Timer<Timeout, Interrupt>::priv_start(std::chrono::milliseconds length) {
+        std::unique_lock<std::mutex> lock(m_cvMutex);
+        if(m_cv.wait_for(lock, length, [this] {return m_done;})) {
+            if(m_interruptFunction) {
+                m_interruptFunction();
+            }
+        } else {
+            m_done = true;
+            if(m_timeoutFunction) {
+                m_timeoutFunction();
+            }
+        }
+    }
 
 }
