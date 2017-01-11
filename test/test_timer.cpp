@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2017 Jean-Sébastien Fauteux
+* Copyright (c) 2017 Jean-SÃ©bastien Fauteux
 *
 * This software is provided 'as-is', without any express or implied warranty.
 * In no event will the authors be held liable for any damages arising from
@@ -26,68 +26,94 @@
 
 TEST_CASE("Testing Timer", "[timer]") {
 
-	SECTION("Creating a timer with no callback") {
-		RSM::Timer<void(), void()> timer;
+    SECTION("Creating a timer with no callback") {
+        RSM::Timer<void(), void()> timer;
 
-		timer.start(std::chrono::milliseconds(1000));
+        timer.start(std::chrono::milliseconds(1000));
 
-		//Sleeping for 1200 instead of 1000 in case threading condition is not precise
-		std::this_thread::sleep_for(std::chrono::milliseconds(1200));
+        //Sleeping for 1200 instead of 1000 in case threading condition is not precise
+        std::this_thread::sleep_for(std::chrono::milliseconds(1200));
 
-		REQUIRE(timer.isDone());
-	}
+        REQUIRE(timer.isDone());
+    }
 
-	SECTION("Creating a timer with timeout callback") {
-		bool isDone = false;
+    SECTION("Creating a timer with timeout callback") {
+        bool isDone = false;
 
-		RSM::Timer<void(), void()> timer;
+        RSM::Timer<void(), void()> timer;
 
-		timer.setTimeoutFunction(std::bind([&]() {
-			isDone = true;
-		}));
+        timer.setTimeoutFunction(std::bind([&]() {
+            isDone = true;
+        }));
 
-		timer.start(std::chrono::milliseconds(1000));
+        timer.start(std::chrono::milliseconds(1000));
 
-		while(!timer.isDone());
+        while(!timer.isDone()) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(50));
+        }
 
-		REQUIRE(isDone);
-	}
+        REQUIRE(isDone);
+    }
 
-	SECTION("Creating a timer with interrupt callback") {
-		bool isDone = false;
+    SECTION("Creating a timer with interrupt callback") {
+        bool isDone = true;
 
-		RSM::Timer<void(), void()> timer;
+        RSM::Timer<void(), void()> timer;
 
-		timer.setInterruptFunction(std::bind([&]() {
-			isDone = true;
-		}));
+        timer.setInterruptFunction(std::bind([&]() {
+            isDone = true;
+        }));
 
-		timer.start(std::chrono::milliseconds(1000));
+        timer.start(std::chrono::milliseconds(1000));
 
-		timer.interrupt();
+        timer.interrupt();
 
-		REQUIRE(isDone);
-	}
+        REQUIRE(isDone);
+    }
 
-	SECTION("Creating a timer with timeout and interrupt callback") {
-		bool isDone = false;
+    SECTION("Creating a timer with timeout and interrupt callback") {
+        bool isDone = false;
 
-		RSM::Timer<void(), void()> timer;
+        RSM::Timer<void(), void()> timer;
 
-		timer.setTimeoutFunction(std::bind([&]() {
-			isDone = true;
-		}));
+        timer.setTimeoutFunction(std::bind([&]() {
+            timer.start(std::chrono::milliseconds(1000));
+            timer.interrupt();
+        }));
 
-		timer.setInterruptFunction(std::bind([&]() {
-			timer.start(std::chrono::milliseconds(1000));
-			timer.interrupt();
-		}));
+        timer.setInterruptFunction(std::bind([&]() {
+            isDone = true;
+        }));
 
-		timer.start(std::chrono::milliseconds(1000));
+        timer.start(std::chrono::milliseconds(1000));
 
-		while(!isDone);
+        while(!isDone) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(50));
+        }
 
-		REQUIRE(isDone);
-	}
+        REQUIRE(isDone);
+    }
+
+    SECTION("Starting a timer already started") {
+        bool isDone = false;
+
+        RSM::Timer<void(), void()> timer;
+
+        timer.setTimeoutFunction(std::bind([&]() {
+            isDone = true;
+        }));
+
+        timer.start(std::chrono::milliseconds(1000));
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+
+        timer.start(std::chrono::milliseconds(1000));
+
+        while(!timer.isDone()) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(50));
+        }
+
+        REQUIRE(isDone);
+    }
 
 }
