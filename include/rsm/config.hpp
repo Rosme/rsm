@@ -41,7 +41,7 @@ namespace std {
 	};
 }
 
-namespace RSM {
+namespace rsm {
 
 	class Config;
 

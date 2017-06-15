@@ -22,11 +22,11 @@
 
 #include "catch.hpp"
 
-#include <RSM/config.hpp>
+#include <rsm/config.hpp>
 
 TEST_CASE("Testing config management", "[config]") {
 	
-	RSM::Config config;
+	rsm::Config config;
 
 	SECTION("Creating a config file from scratch") {
 		//Cleaning up in case

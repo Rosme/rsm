@@ -54,28 +54,19 @@ if(UNIX)
 	endif()
 endif(UNIX)
 
-add_definitions(-DRSM_EXPORTS)
-
-if(NOT RSM_SHARED_LIBS)
-	add_definitions(-DRSM_STATIC)
-endif()
-
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
-set(SRC ${CMAKE_CURRENT_SOURCE_DIR}/src)
 set(HEADER ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DRSM_DEBUG")
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DRSM_RELEASE")
-
 SET(RSM_INC
-	${HEADER}/RSM/logger.hpp
-	${HEADER}/RSM/config.hpp
-	${HEADER}/RSM/config_file_descriptor.hpp
-    ${HEADER}/RSM/matrix.hpp
-    ${HEADER}/RSM/matrix.inl
-	${HEADER}/RSM/timer.hpp
-	${HEADER}/RSM/timer.inl
+	${HEADER}/rsm/logger.hpp
+	${HEADER}/rsm/config.hpp
+	${HEADER}/rsm/config_file_descriptor.hpp
+    ${HEADER}/rsm/matrix.hpp
+    ${HEADER}/rsm/matrix.inl
+	${HEADER}/rsm/timer.hpp
+	${HEADER}/rsm/timer.inl
+	${HEADER}/rsm/any.hpp
 	)
 
 SET(RSM_LIB ${PROJECT_NAME})

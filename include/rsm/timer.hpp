@@ -25,7 +25,7 @@
 #include <thread>
 #include <condition_variable>
 
-namespace RSM {
+namespace rsm {
 
     ////////////////////////////////////////////////////////////
     /// \brief Templated class that for a triggering timer
@@ -100,4 +100,4 @@ namespace RSM {
 
 }
 
-#include <RSM/timer.inl>
+#include <rsm/timer.inl>

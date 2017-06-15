@@ -20,7 +20,7 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-namespace RSM {
+namespace rsm {
     
     template<class T>
     Matrix<T>::Matrix(const std::size_t width, const std::size_t height, const T& default_value)

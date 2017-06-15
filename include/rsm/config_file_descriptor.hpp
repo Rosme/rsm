@@ -27,7 +27,7 @@
 #include <stdexcept>
 #include <fstream>
 
-namespace RSM {
+namespace rsm {
 
 	class Config;
 

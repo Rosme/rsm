@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2016 Jean-Sébastien Fauteux
+# Copyright (c) 2017 Jean-Sébastien Fauteux
 #
 # This software is provided 'as-is', without any express or implied warranty. 
 # In no event will the authors be held liable for any damages arising from 
@@ -31,6 +31,7 @@ SET(TEST_TESTS
 	test_config.cpp
     test_matrix.cpp
 	test_timer.cpp
+	test_any.cpp
 	)
 
 add_executable("Test" ${TEST_INC} ${TEST_TESTS})
