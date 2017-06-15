@@ -22,13 +22,13 @@
 
 #include "catch.hpp"
 
-#include <RSM/matrix.hpp>
+#include <rsm/matrix.hpp>
 #include <string>
 
 TEST_CASE("Testing Matrix", "[matrix]") {
     
     SECTION("Creating a integer matrix without default intialization") {
-        RSM::Matrix<int> matrix(5, 10);
+        rsm::Matrix<int> matrix(5, 10);
         
         int l = 1;
         for(std::size_t i = 0; i < matrix.height(); ++i) {
@@ -48,7 +48,7 @@ TEST_CASE("Testing Matrix", "[matrix]") {
     }
     
     SECTION("Creating a integer matrix with default intialization") {
-        RSM::Matrix<int> matrix(5, 10, 7);
+        rsm::Matrix<int> matrix(5, 10, 7);
         
         for(std::size_t i = 0; i < matrix.height(); ++i) {
             for(std::size_t j = 0; j < matrix.width(); ++j) {
@@ -58,7 +58,7 @@ TEST_CASE("Testing Matrix", "[matrix]") {
     }
     
     SECTION("Creating a string matrix without default intialization") {
-        RSM::Matrix<std::string> matrix(5, 10);
+        rsm::Matrix<std::string> matrix(5, 10);
         
         for(std::size_t i = 0; i < matrix.height(); ++i) {
             for(std::size_t j = 0; j < matrix.width(); ++j) {
@@ -74,7 +74,7 @@ TEST_CASE("Testing Matrix", "[matrix]") {
     }
     
     SECTION("Creating a string matrix with default intialization") {
-        RSM::Matrix<std::string> matrix(5, 10, "Test");
+        rsm::Matrix<std::string> matrix(5, 10, "Test");
         
         for(std::size_t i = 0; i < matrix.height(); ++i) {
             for(std::size_t j = 0; j < matrix.width(); ++j) {
@@ -84,8 +84,8 @@ TEST_CASE("Testing Matrix", "[matrix]") {
     }
     
     SECTION("Copy construction integer matrix") {
-        RSM::Matrix<int> matrix(5, 10, 7);
-        RSM::Matrix<int> copy(matrix);
+        rsm::Matrix<int> matrix(5, 10, 7);
+        rsm::Matrix<int> copy(matrix);
         
         REQUIRE(copy.width() == 5);
         REQUIRE(copy.height() == 10);
@@ -96,8 +96,8 @@ TEST_CASE("Testing Matrix", "[matrix]") {
     }
     
     SECTION("Copy assigment integer matrix") {
-        RSM::Matrix<int> matrix(5, 10, 7);
-        RSM::Matrix<int> copy(2, 8, 5);
+        rsm::Matrix<int> matrix(5, 10, 7);
+        rsm::Matrix<int> copy(2, 8, 5);
         
         copy = matrix;
         
@@ -110,8 +110,8 @@ TEST_CASE("Testing Matrix", "[matrix]") {
     }
     
     SECTION("Copy construction string matrix") {
-        RSM::Matrix<std::string> matrix(5, 10, "Test");
-        RSM::Matrix<std::string> copy(matrix);
+        rsm::Matrix<std::string> matrix(5, 10, "Test");
+        rsm::Matrix<std::string> copy(matrix);
         
         REQUIRE(copy.width() == 5);
         REQUIRE(copy.height() == 10);
@@ -122,8 +122,8 @@ TEST_CASE("Testing Matrix", "[matrix]") {
     }
     
     SECTION("Copy assigment string matrix") {
-        RSM::Matrix<std::string> matrix(5, 10, "Test");
-        RSM::Matrix<std::string> copy(2, 8, "Test2");
+        rsm::Matrix<std::string> matrix(5, 10, "Test");
+        rsm::Matrix<std::string> copy(2, 8, "Test2");
         
         copy = matrix;
         
@@ -136,8 +136,8 @@ TEST_CASE("Testing Matrix", "[matrix]") {
     }
     
     SECTION("Move construction integer matrix") {
-        RSM::Matrix<int> matrix(5, 10, 7);
-        RSM::Matrix<int> moved(std::move(matrix));
+        rsm::Matrix<int> matrix(5, 10, 7);
+        rsm::Matrix<int> moved(std::move(matrix));
         
         REQUIRE(moved.width() == 5);
         REQUIRE(moved.height() == 10);
@@ -145,8 +145,8 @@ TEST_CASE("Testing Matrix", "[matrix]") {
     }
     
     SECTION("Move assignment integer matrix") {
-        RSM::Matrix<int> matrix(5, 10, 7);
-        RSM::Matrix<int> moved;
+        rsm::Matrix<int> matrix(5, 10, 7);
+        rsm::Matrix<int> moved;
         
         moved = std::move(matrix);
         
@@ -156,8 +156,8 @@ TEST_CASE("Testing Matrix", "[matrix]") {
     }
     
     SECTION("Move construction string matrix") {
-        RSM::Matrix<std::string> matrix(5, 10, "Test");
-        RSM::Matrix<std::string> moved(std::move(matrix));
+        rsm::Matrix<std::string> matrix(5, 10, "Test");
+        rsm::Matrix<std::string> moved(std::move(matrix));
         
         REQUIRE(moved.width() == 5);
         REQUIRE(moved.height() == 10);
@@ -165,8 +165,8 @@ TEST_CASE("Testing Matrix", "[matrix]") {
     }
     
     SECTION("Move assignment string matrix") {
-        RSM::Matrix<std::string> matrix(5, 10, "Test");
-        RSM::Matrix<std::string> moved;
+        rsm::Matrix<std::string> matrix(5, 10, "Test");
+        rsm::Matrix<std::string> moved;
         
         moved = std::move(matrix);
         

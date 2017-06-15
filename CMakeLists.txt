@@ -69,13 +69,14 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DRSM_DEBUG")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DRSM_RELEASE")
 
 SET(RSM_INC
-	${HEADER}/RSM/logger.hpp
-	${HEADER}/RSM/config.hpp
-	${HEADER}/RSM/config_file_descriptor.hpp
-    ${HEADER}/RSM/matrix.hpp
-    ${HEADER}/RSM/matrix.inl
-	${HEADER}/RSM/timer.hpp
-	${HEADER}/RSM/timer.inl
+	${HEADER}/rsm/logger.hpp
+	${HEADER}/rsm/config.hpp
+	${HEADER}/rsm/config_file_descriptor.hpp
+    ${HEADER}/rsm/matrix.hpp
+    ${HEADER}/rsm/matrix.inl
+	${HEADER}/rsm/timer.hpp
+	${HEADER}/rsm/timer.inl
+	${HEADER}/rsm/any.hpp
 	)
 
 SET(RSM_LIB ${PROJECT_NAME})

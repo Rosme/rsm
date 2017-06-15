@@ -29,7 +29,7 @@
 #include <stdexcept>
 #include <chrono>
 
-namespace RSM {
+namespace rsm {
 
 	////////////////////////////////////////////////////////////
 	/// \brief Logging utilities that will log to console and file.
@@ -229,8 +229,8 @@ namespace RSM {
 	#endif
 #endif
 
-#define RSM_LOG_DEBUG(t) RSM::Logger::log(t, __func__, RSM::Logger::LoggingLevel::Debug)
-#define RSM_LOG_INFO(t) RSM::Logger::log(t, __func__, RSM::Logger::LoggingLevel::Info)
-#define RSM_LOG_WARN(t) RSM::Logger::log(t, __func__, RSM::Logger::LoggingLevel::Warn)
-#define RSM_LOG_CRITICAL(t) RSM::Logger::log(t, __func__, RSM::Logger::LoggingLevel::Critical)
-#define RSM_LOG_ERROR(t) RSM::Logger::log(t, __func__, RSM::Logger::LoggingLevel::Error)
+#define RSM_LOG_DEBUG(t) rsm::Logger::log(t, __func__, rsm::Logger::LoggingLevel::Debug)
+#define RSM_LOG_INFO(t) rsm::Logger::log(t, __func__, rsm::Logger::LoggingLevel::Info)
+#define RSM_LOG_WARN(t) rsm::Logger::log(t, __func__, rsm::Logger::LoggingLevel::Warn)
+#define RSM_LOG_CRITICAL(t) rsm::Logger::log(t, __func__, rsm::Logger::LoggingLevel::Critical)
+#define RSM_LOG_ERROR(t) rsm::Logger::log(t, __func__, rsm::Logger::LoggingLevel::Error)

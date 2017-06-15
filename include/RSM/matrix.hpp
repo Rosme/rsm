@@ -27,7 +27,7 @@
 #include <cassert>
 #include <algorithm>
 
-namespace RSM {
+namespace rsm {
 
     ////////////////////////////////////////////////////////////
     /// \brief Templated class that represents a Matrix
@@ -161,4 +161,4 @@ namespace RSM {
     };
 }
 
-#include <RSM/matrix.inl>
+#include <rsm/matrix.inl>

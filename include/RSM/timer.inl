@@ -20,7 +20,7 @@
 * 3. This notice may not be removed or altered from any source distribution.
 */
 
-namespace RSM {
+namespace rsm {
 
     template<class Timeout, class Interrupt>
     Timer<Timeout, Interrupt>::Timer()
