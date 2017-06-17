@@ -10,6 +10,9 @@ Develop: [![Build Status](https://travis-ci.org/Rosme/rsm_utils.svg?branch=devel
 
 ### Features
 
+* Any
+	* Type-erasure class for generic storage
+	* Easy to use(copyable, movable)
 * Config
     * Allow you to read from a configuration file
     * Default Configuration type is a Key=Value type
