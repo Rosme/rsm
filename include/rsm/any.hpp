@@ -33,7 +33,7 @@ namespace rsm {
 
 		template<class Type>
 		Any(const Type& data)
-			: m_holder(new Impl<Type>(data)) {}
+			: m_holder(std::make_unique<Impl<Type>>(data)) {}
 
 		Any(const Any& other)
 			: m_holder(other.m_holder ? other.m_holder->copy() : nullptr) {}
@@ -46,6 +46,24 @@ namespace rsm {
 
 		Any& operator=(Any other) {
 			Any(other).swap(*this);
+			return *this;
+		}
+
+		Any(Any&& other)
+			: m_holder(std::move(other.m_holder))
+		{
+			other.m_holder.reset();
+		}
+
+		template<class Type>
+		Any& operator=(Type&& data) {
+			Any(data).swap(*this);
+			return *this;
+		}
+
+		Any& operator=(Any&& other) {
+			other.swap(*this);
+			Any().swap(other);
 			return *this;
 		}
 
