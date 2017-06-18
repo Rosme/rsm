@@ -67,6 +67,7 @@ SET(RSM_INC
 	${HEADER}/rsm/timer.hpp
 	${HEADER}/rsm/timer.inl
 	${HEADER}/rsm/any.hpp
+	${HEADER}/rsm/unused.hpp
 	)
 
 SET(RSM_LIB ${PROJECT_NAME})
