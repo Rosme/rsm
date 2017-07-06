@@ -27,78 +27,78 @@
 
 TEST_CASE("Testing Any", "[any]") {
 
-	SECTION("Empty Any") {
-		rsm::Any anyObject;
+    SECTION("Empty Any") {
+        rsm::Any anyObject;
 
-		REQUIRE(!anyObject.isValid());
-	}
+        REQUIRE(!anyObject.isValid());
+    }
 
-	SECTION("Integer Any") {
-		rsm::Any anyInteger(1);
+    SECTION("Integer Any") {
+        rsm::Any anyInteger(1);
 
-		REQUIRE(anyInteger.isValid());
-		REQUIRE(anyInteger.get<int>() == 1);
-	}
+        REQUIRE(anyInteger.isValid());
+        REQUIRE(anyInteger.get<int>() == 1);
+    }
 
-	SECTION("String Any") {
-		rsm::Any anyString(std::string("test"));
+    SECTION("String Any") {
+        rsm::Any anyString(std::string("test"));
 
-		REQUIRE(anyString.isValid());
-		REQUIRE(anyString.get<std::string>() == "test");
-	}
+        REQUIRE(anyString.isValid());
+        REQUIRE(anyString.get<std::string>() == "test");
+    }
 
-	SECTION("Copying Integer Any") {
-		rsm::Any anyIntegerSource(1);
-		rsm::Any anyIntegerCopy;
+    SECTION("Copying Integer Any") {
+        rsm::Any anyIntegerSource(1);
+        rsm::Any anyIntegerCopy;
 
-		REQUIRE(anyIntegerSource.isValid());
-		REQUIRE(!anyIntegerCopy.isValid());
+        REQUIRE(anyIntegerSource.isValid());
+        REQUIRE(!anyIntegerCopy.isValid());
 
-		REQUIRE(anyIntegerSource.get<int>() == 1);
+        REQUIRE(anyIntegerSource.get<int>() == 1);
 
-		anyIntegerCopy = anyIntegerSource;
+        anyIntegerCopy = anyIntegerSource;
 
-		anyIntegerSource = 2;
-		REQUIRE(anyIntegerSource.get<int>() == 2);
-		REQUIRE(anyIntegerCopy.get<int>() == 1);
-	}
+        anyIntegerSource = 2;
+        REQUIRE(anyIntegerSource.get<int>() == 2);
+        REQUIRE(anyIntegerCopy.get<int>() == 1);
+    }
 
-	SECTION("Copy Construct String Any") {
-		rsm::Any anyStringSource(1);
+    SECTION("Copy Construct String Any") {
+        rsm::Any anyStringSource(1);
 
-		REQUIRE(anyStringSource.isValid());
-		REQUIRE(anyStringSource.get<int>() == 1);
+        REQUIRE(anyStringSource.isValid());
+        REQUIRE(anyStringSource.get<int>() == 1);
 
-		rsm::Any anyStringCopy(anyStringSource);
+        rsm::Any anyStringCopy(anyStringSource);
 
-		anyStringSource = 2;
-		REQUIRE(anyStringSource.get<int>() == 2);
-		REQUIRE(anyStringCopy.get<int>() == 1);
-	}
+        anyStringSource = 2;
+        REQUIRE(anyStringSource.get<int>() == 2);
+        REQUIRE(anyStringCopy.get<int>() == 1);
+    }
 
-	SECTION("Moving Construct Integer Any") {
-		rsm::Any anyIntegerSource(1);
+    SECTION("Moving Construct Integer Any") {
+        rsm::Any anyIntegerSource(1);
 
-		REQUIRE(anyIntegerSource.isValid());
-		REQUIRE(anyIntegerSource.get<int>() == 1);
+        REQUIRE(anyIntegerSource.isValid());
+        REQUIRE(anyIntegerSource.get<int>() == 1);
 
-		rsm::Any anyIntegerMoved(std::move(anyIntegerSource));
+        rsm::Any anyIntegerMoved(std::move(anyIntegerSource));
 
-		REQUIRE(anyIntegerMoved.isValid());
-		REQUIRE(anyIntegerMoved.get<int>() == 1);
-		REQUIRE(!anyIntegerSource.isValid());
-	}
+        REQUIRE(anyIntegerMoved.isValid());
+        REQUIRE(anyIntegerMoved.get<int>() == 1);
+        REQUIRE(!anyIntegerSource.isValid());
+    }
 
-	SECTION("Moving String Any") {
-		rsm::Any anyStringSource(std::string("test"));
+    SECTION("Moving String Any") {
+        rsm::Any anyStringSource(std::string("test"));
 
-		REQUIRE(anyStringSource.isValid());
-		REQUIRE(anyStringSource.get<std::string>() == "test");
+        REQUIRE(anyStringSource.isValid());
+        REQUIRE(anyStringSource.get<std::string>() == "test");
 
-		rsm::Any anyStringMoved = std::move(anyStringSource);
+        rsm::Any anyStringMoved = std::move(anyStringSource);
 
-		REQUIRE(anyStringMoved.isValid());
-		REQUIRE(anyStringMoved.get<std::string>() == "test");
-		REQUIRE(!anyStringSource.isValid());
-	}
+        REQUIRE(anyStringMoved.isValid());
+        REQUIRE(anyStringMoved.get<std::string>() == "test");
+        REQUIRE(!anyStringSource.isValid());
+    }
 }

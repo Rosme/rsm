@@ -26,8 +26,8 @@
 
 TEST_CASE("Testing Timer", "[timer]") {
 
-	//Commented due to crash sometimes...
-	
+    //Commented due to crash sometimes...
+    
     //SECTION("Creating a timer with no callback") {
     //    rsm::Timer<void(), void()> timer;
 
