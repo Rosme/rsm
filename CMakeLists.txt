@@ -61,7 +61,6 @@ set(HEADER ${CMAKE_CURRENT_SOURCE_DIR}/include)
 SET(RSM_INC
 	${HEADER}/rsm/logger.hpp
 	${HEADER}/rsm/config.hpp
-	${HEADER}/rsm/config_file_descriptor.hpp
     ${HEADER}/rsm/matrix.hpp
     ${HEADER}/rsm/matrix.inl
 	${HEADER}/rsm/timer.hpp
