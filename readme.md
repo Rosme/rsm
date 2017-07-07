@@ -24,12 +24,17 @@ Develop: [![Build Status](https://travis-ci.org/Rosme/rsm.svg?branch=develop)](h
 * Matrix
     * Matrix class for easier usage of matrix
     * Safe and easy to use with operator()
+* Message Dispatcher
+    * Lightweight Message class to ship any kind of message
+    * Virtual Message Handler to handle messages using a key=> message type association
+    * Async Message Dispatcher to dispatch messages in a asynchronous way
+    * Or monothread Message Dispatcher to dispatch the messages when you want
 * Timer
     * Timer that can trigger a callback when timed out
     * Can also trigger a callback when interrupted
 
 ### License
 
-The library is distributed under the zlig/png license. This basically means you can use rsm_utils in any project(commercial or not, proprietary or open-source) for free. There is no restriction to the use. You don't even need to mention rsm_utils or me, though it would be appreciated.
+The library is distributed under the zlib/png license. This basically means you can use rsm in any project(commercial or not, proprietary or open-source) for free. There is no restriction to the use. You don't even need to mention rsm or me, though it would be appreciated.
 
 Written by Jean-Sébastien Fauteux
