@@ -23,15 +23,16 @@
 project("test")
 
 SET(TEST_INC
-	catch.hpp
-	)
+    catch.hpp
+    )
 
 SET(TEST_TESTS
-	main.cpp
-	test_config.cpp
+    main.cpp
+    test_config.cpp
     test_matrix.cpp
-	test_timer.cpp
-	test_any.cpp
-	)
+    test_timer.cpp
+    test_any.cpp
+    test_message_dispatcher.cpp
+    )
 
 add_executable("Test" ${TEST_INC} ${TEST_TESTS})

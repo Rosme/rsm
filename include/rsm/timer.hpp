@@ -35,68 +35,68 @@ namespace rsm {
     /// Interrupt Callback: Is called if the timer is interrupted before timing out.
     /// Template parameters represent std::function argument.
     ////////////////////////////////////////////////////////////
-	template<class Timeout, class Interrupt>
-	class Timer {
-	public:
+    template<class Timeout, class Interrupt>
+    class Timer {
+    public:
         ////////////////////////////////////////////////////////////
         /// \brief Constructor
         ////////////////////////////////////////////////////////////
-		Timer();
+        Timer();
 
         ////////////////////////////////////////////////////////////
         /// \brief Deleted Copy Constructor
         ////////////////////////////////////////////////////////////
-		Timer(const Timer&) = delete;
+        Timer(const Timer&) = delete;
 
         ////////////////////////////////////////////////////////////
         /// \brief Deleted Copy Assignment
         ////////////////////////////////////////////////////////////
-		Timer& operator=(const Timer&) = delete;
+        Timer& operator=(const Timer&) = delete;
 
         ////////////////////////////////////////////////////////////
         /// \brief Start the time with specified time length
         ///
         /// \param length The time in milliseconds until the timer will timeout.
         ////////////////////////////////////////////////////////////
-		void start(std::chrono::milliseconds length);
+        void start(std::chrono::milliseconds length);
 
         ////////////////////////////////////////////////////////////
         /// \brief Set the timeout callback function to be called on timeout.
         ///
         /// \param function A std::function/lambda that represents the callback function.
         ////////////////////////////////////////////////////////////
-		void setTimeoutFunction(const std::function<Timeout>& function);
+        void setTimeoutFunction(const std::function<Timeout>& function);
 
         ////////////////////////////////////////////////////////////
         /// \brief Set the timeout callback function to be called on interrupt.
         ///
         /// \param function A std::function/lambda that represents the callback function.
         ////////////////////////////////////////////////////////////
-		void setInterruptFunction(const std::function<Interrupt>& function);
+        void setInterruptFunction(const std::function<Interrupt>& function);
 
         ////////////////////////////////////////////////////////////
         /// \brief Interrupt the timer before it times out.
         ////////////////////////////////////////////////////////////
-		void interrupt();
+        void interrupt();
 
         ////////////////////////////////////////////////////////////
         /// \brief Tells if the timer is done(either interrupted or timeout).
         ///
         /// \return true if is done(interrupted or timeout), false otherwise
         ////////////////////////////////////////////////////////////
-		const bool isDone() const;
+        const bool isDone() const;
 
-	private:
-		void priv_start(std::chrono::milliseconds length);
+    private:
+        void priv_start(std::chrono::milliseconds length);
 
-	private:
-		std::function<Timeout> m_timeoutFunction;
-		std::function<Interrupt> m_interruptFunction;
-		std::thread m_thread;
-		std::condition_variable m_cv;
-		std::mutex m_cvMutex;
-		bool m_done;
-	};
+    private:
+        std::function<Timeout> m_timeoutFunction;
+        std::function<Interrupt> m_interruptFunction;
+        std::thread m_thread;
+        std::condition_variable m_cv;
+        std::mutex m_cvMutex;
+        bool m_done;
+    };
 
 }
 

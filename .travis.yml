@@ -32,4 +32,4 @@ script:
   - cmake ../ -DRSM_BUILD_TEST=True
   - cd test
   - make
-  - ./Test
+  - ./Test -s

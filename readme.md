@@ -1,18 +1,18 @@
-# rsm_utils
+# rsm
 
-rsm_utils is a utility library that contains different utility for different purposes. It`s basically different tools I tend to reprogram with every project that I decided to centralise in a library. It is programmed in C++ and requires C++11.
+rsm is a utility library that contains different utility for different purposes. It`s basically different tools I tend to reprogram with every project that I decided to centralise in a library. It is programmed in C++ and requires C++11.
 
 ### Build Status		
 
-Master: [![Build Status](https://travis-ci.org/Rosme/rsm_utils.svg?branch=master)](https://travis-ci.org/Rosme/rsm_utils)		
+Master: [![Build Status](https://travis-ci.org/Rosme/rsm.svg?branch=master)](https://travis-ci.org/Rosme/rsm)		
 
-Develop: [![Build Status](https://travis-ci.org/Rosme/rsm_utils.svg?branch=develop)](https://travis-ci.org/Rosme/rsm_utils)		
+Develop: [![Build Status](https://travis-ci.org/Rosme/rsm.svg?branch=develop)](https://travis-ci.org/Rosme/rsm)		
 
 ### Features
 
 * Any
-	* Type-erasure class for generic storage
-	* Easy to use(copyable, movable)
+    * Type-erasure class for generic storage
+    * Easy to use(copyable, movable)
 * Config
     * Allow you to read from a configuration file
     * Default Configuration type is a Key=Value type
