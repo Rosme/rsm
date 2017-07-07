@@ -58,6 +58,13 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 
 set(HEADER ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
+set(RSM_MSG_INC
+    ${HEADER}/rsm/msg/message.hpp
+    ${HEADER}/rsm/msg/message_handler.hpp
+    ${HEADER}/rsm/msg/message_dispatcher.hpp
+    ${HEADER}/rsm/msg/async_message_dispatcher.hpp
+    )
+
 SET(RSM_INC
     ${HEADER}/rsm/logger.hpp
     ${HEADER}/rsm/config.hpp
@@ -67,6 +74,7 @@ SET(RSM_INC
     ${HEADER}/rsm/timer.inl
     ${HEADER}/rsm/any.hpp
     ${HEADER}/rsm/unused.hpp
+    ${RSM_MSG_INC}
     )
 
 SET(RSM_LIB ${PROJECT_NAME})

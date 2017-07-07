@@ -32,6 +32,7 @@ SET(TEST_TESTS
     test_matrix.cpp
     test_timer.cpp
     test_any.cpp
+    test_message_dispatcher.cpp
     )
 
 add_executable("Test" ${TEST_INC} ${TEST_TESTS})
