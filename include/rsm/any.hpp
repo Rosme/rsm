@@ -23,6 +23,7 @@
 #pragma once
 
 #include <memory>
+#include <typeinfo>
 
 namespace rsm {
 
@@ -167,6 +168,14 @@ namespace rsm {
             return reinterpret_cast<Impl<Type>*>(m_holder.get())->val;
         }
 
+        const std::type_info& type() const {
+            if(m_holder) {
+                return m_holder->type();
+            }
+
+            return typeid(nullptr);
+        }
+
     private:
         Any& swap(Any& other) {
             std::swap(m_holder, other.m_holder);
@@ -176,6 +185,8 @@ namespace rsm {
         struct Holder {
             virtual ~Holder() {}
             virtual Holder* copy() = 0;
+
+            virtual const std::type_info& type() const = 0;
         };
 
         template<class Type>
@@ -185,6 +196,10 @@ namespace rsm {
 
             Holder* copy() {
                 return new Impl(val);
+            }
+
+            const std::type_info& type() const {
+                return typeid(val);
             }
 
             Type val;
