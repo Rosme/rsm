@@ -23,6 +23,7 @@
 #include "catch.hpp"
 
 #include <rsm/any.hpp>
+#include <rsm/matrix.hpp>
 #include <string>
 
 TEST_CASE("Testing Any", "[any]") {
@@ -101,4 +102,21 @@ TEST_CASE("Testing Any", "[any]") {
         REQUIRE(anyStringMoved.get<std::string>() == "test");
         REQUIRE(!anyStringSource.isValid());
     }
+
+#if defined(WIN32)
+    SECTION("Integer Any TypeId") {
+        rsm::Any anyInteger(1);
+
+        std::string name(anyInteger.type().name());
+        REQUIRE(name.find("int") != std::string::npos);
+    }
+
+    SECTION("Matrix Any TypeId") {
+        rsm::Matrix<int> matrix;
+        rsm::Any anyMatrix(matrix);
+
+        std::string name(anyMatrix.type().name());
+        REQUIRE(name.find("rsm::Matrix") != std::string::npos);
+    }
+#endif
 }
