@@ -103,6 +103,7 @@ TEST_CASE("Testing Any", "[any]") {
         REQUIRE(!anyStringSource.isValid());
     }
 
+#if defined(WIN32)
     SECTION("Integer Any TypeId") {
         rsm::Any anyInteger(1);
 
@@ -117,4 +118,5 @@ TEST_CASE("Testing Any", "[any]") {
         std::string name(anyMatrix.type().name());
         REQUIRE(name.find("rsm::Matrix") != std::string::npos);
     }
+#endif
 }
