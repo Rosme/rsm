@@ -68,9 +68,9 @@ namespace rsm {
         }
 
     private:
-        typedef std::unordered_multimap<std::string, rsm::MessageHandler*> HandlerMap;
+        using HandlerMap = std::unordered_multimap<std::string, rsm::MessageHandler*>;
         HandlerMap m_handlers;
-        typedef std::queue<std::pair<std::string, rsm::Message>> MessageQueue;
+        using MessageQueue = std::queue<std::pair<std::string, rsm::Message>>;
         MessageQueue m_messages;
     };
 

@@ -168,7 +168,7 @@ namespace rsm {
 
         const std::string getTime() const {
             using namespace std::chrono;
-            typedef duration<int, std::ratio_multiply<hours::period, std::ratio<24>>::type> days;
+            using days = duration<int, std::ratio_multiply<hours::period, std::ratio<24>>::type>;
 
             system_clock::time_point now = system_clock::now();
             system_clock::duration tp = now.time_since_epoch();
