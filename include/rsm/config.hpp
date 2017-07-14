@@ -47,7 +47,7 @@ namespace rsm {
 
     class ConfigFileDescriptor {
     public:
-        typedef std::unique_ptr<ConfigFileDescriptor> Ptr;
+        using Ptr = std::unique_ptr<ConfigFileDescriptor>;
 
     public:
         ConfigFileDescriptor() = default;
@@ -77,7 +77,7 @@ namespace rsm {
     ////////////////////////////////////////////////////////////
     class Config{
     public:
-        typedef std::string Key;
+        using Key = std::string;
 
     public:
         ////////////////////////////////////////////////////////////
@@ -321,7 +321,7 @@ namespace rsm {
         Config& operator=(const Config&) = delete;
 
     private:
-        typedef std::unordered_map<const Key, std::string> ConfigMap;
+        using ConfigMap = std::unordered_map<const Key, std::string>;
         ConfigMap m_configs;
         ConfigFileDescriptor::Ptr m_fileDescriptor;
     };
