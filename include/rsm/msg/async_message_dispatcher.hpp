@@ -29,6 +29,7 @@
 #include <unordered_map>
 #include <string>
 #include <queue>
+#include <atomic>
 
 namespace rsm {
 
