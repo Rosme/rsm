@@ -34,7 +34,9 @@ namespace rsm {
 
     class AsyncMessageDispatcher {
     public:
-        AsyncMessageDispatcher() = default;
+        AsyncMessageDispatcher() {
+            m_running = false;
+        }
 
         AsyncMessageDispatcher(const AsyncMessageDispatcher&) = delete;
         AsyncMessageDispatcher& operator=(const AsyncMessageDispatcher&) = delete;
@@ -101,7 +103,7 @@ namespace rsm {
         MessageQueue m_messages;
         std::thread m_thread;
         std::mutex m_mutex;
-        bool m_running = false;
+        std::atomic<bool> m_running;
     };
 
 }
