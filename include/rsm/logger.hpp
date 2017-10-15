@@ -25,29 +25,35 @@
 #include <vector>
 #include <memory>
 
-class LogDevice {
-public:
-    using Ptr = std::unique_ptr<LogDevice>;
-private:
+namespace rsm {
+	
+	class LogDevice {
+	public:
+		using Ptr = std::unique_ptr<LogDevice>;
+	protected:
+		LogDevice() = default;
 
-};
+	};
 
-class Logger {
-public:
-    Logger(const Logger&) = delete;
-    Logger& operator=(const Logger&) = delete;
+	class Logger {
+	public:
+		Logger(const Logger&) = delete;
+		Logger& operator=(const Logger&) = delete;
 
-    static void addLogDevice(LogDevice::Ptr device) {
-        logger().m_logDevices.emplace_back(std::move(device));
-    }
+		static void addLogDevice(LogDevice::Ptr device) {
+			logger().m_logDevices.emplace_back(std::move(device));
+		}
 
-private:
-    Logger(){}
-    static Logger& logger() {
-        static Logger logger;
-        return logger;
-    }
+	private:
+		Logger() {}
+		static Logger& logger() {
+			static Logger logger;
+			return logger;
+		}
 
-private:
-    std::vector<LogDevice::Ptr> m_logDevices;
-};
+	private:
+		std::vector<LogDevice::Ptr> m_logDevices;
+	};
+
+}
+
