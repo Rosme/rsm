@@ -27,12 +27,24 @@
 
 namespace rsm {
 	
+	enum class LogLevel {
+		None,
+		Debug,
+		Info,
+		Warning,
+		Critical,
+		Error
+	};
+
 	class LogDevice {
 	public:
 		using Ptr = std::unique_ptr<LogDevice>;
+
+		template<class T>
+		void log(LogLevel level, const T& data);
+
 	protected:
 		LogDevice() = default;
-
 	};
 
 	class Logger {
@@ -42,6 +54,13 @@ namespace rsm {
 
 		static void addLogDevice(LogDevice::Ptr device) {
 			logger().m_logDevices.emplace_back(std::move(device));
+		}
+
+		template<class T>
+		static void log(LogLevel level, const T& data) {
+			for(auto& device : logger().m_logDevices) {
+				device.log(level, data);
+			}
 		}
 
 	private:

@@ -25,8 +25,7 @@
 #include <rsm/logger.hpp>
 
 class EmptyLogDevice
-	: public rsm::LogDevice
-{
+	: public rsm::LogDevice {
 public:
 	EmptyLogDevice() = default;
 };
