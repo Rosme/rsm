@@ -65,8 +65,14 @@ set(RSM_MSG_INC
     ${HEADER}/rsm/msg/async_message_dispatcher.hpp
     )
 
+set(RSM_LOG_INC
+	${HEADER}/rsm/log/logger.hpp
+	${HEADER}/rsm/log/log_device.hpp
+	${HEADER}/rsm/log/file_log_device.hpp
+	${HEADER}/rsm/log/stream_log_device.hpp
+	)
+
 SET(RSM_INC
-    ${HEADER}/rsm/logger.hpp
     ${HEADER}/rsm/config.hpp
     ${HEADER}/rsm/matrix.hpp
     ${HEADER}/rsm/matrix.inl
@@ -75,6 +81,7 @@ SET(RSM_INC
     ${HEADER}/rsm/any.hpp
     ${HEADER}/rsm/unused.hpp
     ${RSM_MSG_INC}
+	${RSM_LOG_INC}
     )
 
 SET(RSM_LIB ${PROJECT_NAME})
