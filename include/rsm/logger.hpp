@@ -24,6 +24,7 @@
 
 #include <vector>
 #include <memory>
+#include <string>
 
 namespace rsm {
 	
@@ -38,10 +39,11 @@ namespace rsm {
 
 	class LogDevice {
 	public:
+		virtual ~LogDevice() = default;
 		using Ptr = std::unique_ptr<LogDevice>;
 
-		template<class T>
-		void log(LogLevel level, const T& data);
+		
+		virtual void log(LogLevel level, const std::string& message) = 0;
 
 	protected:
 		LogDevice() = default;
@@ -59,7 +61,7 @@ namespace rsm {
 		template<class T>
 		static void log(LogLevel level, const T& data) {
 			for(auto& device : logger().m_logDevices) {
-				device.log(level, data);
+				device->log(level, data);
 			}
 		}
 

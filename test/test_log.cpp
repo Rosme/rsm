@@ -24,10 +24,17 @@
 
 #include <rsm/logger.hpp>
 
-class EmptyLogDevice
+#include <iostream>
+
+class StreamLogger
 	: public rsm::LogDevice {
 public:
-	EmptyLogDevice() = default;
+	StreamLogger() = default;
+
+
+	void log(rsm::LogLevel level, const std::string& message) override {
+		std::cout << "[" << static_cast<int>(level) << "] : " << message;
+	}
 };
 
 
@@ -35,8 +42,9 @@ TEST_CASE("Testing logging", "[log]") {
 	
 	SECTION("Empty Log Device") {
 		
-		rsm::Logger::addLogDevice(std::make_unique<EmptyLogDevice>());
+		rsm::Logger::addLogDevice(std::make_unique<StreamLogger>());
 		
+		rsm::Logger::log(rsm::LogLevel::Debug, "Test");
 		
 		REQUIRE(true);
 	}
