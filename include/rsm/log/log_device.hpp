@@ -20,35 +20,49 @@
 * 3. This notice may not be removed or altered from any source distribution.
 */
 
-#include "catch.hpp"
+#pragma once
 
-#include <rsm/log/logger.hpp>
-#include <rsm/log/stream_log_device.hpp>
-#include <rsm/log/file_log_device.hpp>
+#include <memory>
+#include <string>
 
-#include <fstream>
-
-TEST_CASE("Testing logging", "[log]") {
+namespace rsm {
 	
-	/*SECTION("Stream Log Device") {
-		
-		rsm::Logger::addLogDevice(std::make_unique<rsm::StreamLogDevice>());
-		
-		rsm::Logger::log(rsm::LogLevel::Debug, "Test");		
+	enum class LogLevel {
+		None,
+		Debug,
+		Info,
+		Warning,
+		Critical,
+		Error
+	};
 
-		REQUIRE(true);
-	}*/
-
-	SECTION("File Log Device") {
-		std::string logFileName = "log";
-		rsm::Logger::addLogDevice(std::make_unique<rsm::FileLogDevice>(logFileName));
-
-		rsm::Logger::log(rsm::LogLevel::Debug, "Test");
-
-		std::ifstream stream;
-		stream.open(logFileName, std::ios::in);
-
-		REQUIRE(stream.is_open());
+	std::string logLevelToString(LogLevel level) {
+		switch (level) {
+		case LogLevel::Debug:
+			return "Debug";
+		case LogLevel::Info:
+			return "Info";
+		case LogLevel::Warning:
+			return "Warning";
+		case LogLevel::Critical:
+			return "Critical";
+		case LogLevel::Error:
+			return "Error";
+		default:
+			return "None";
+		}
 	}
+
+	class LogDevice {
+	public:
+		virtual ~LogDevice() = default;
+		using Ptr = std::unique_ptr<LogDevice>;
+
+
+		virtual void log(LogLevel level, const std::string& message) = 0;
+
+	protected:
+		LogDevice() = default;
+	};
 
 }

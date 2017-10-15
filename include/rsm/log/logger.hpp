@@ -22,32 +22,13 @@
 
 #pragma once
 
+#include <rsm/log/log_device.hpp>
 #include <vector>
 #include <memory>
-#include <string>
 
 namespace rsm {
 	
-	enum class LogLevel {
-		None,
-		Debug,
-		Info,
-		Warning,
-		Critical,
-		Error
-	};
-
-	class LogDevice {
-	public:
-		virtual ~LogDevice() = default;
-		using Ptr = std::unique_ptr<LogDevice>;
-
-		
-		virtual void log(LogLevel level, const std::string& message) = 0;
-
-	protected:
-		LogDevice() = default;
-	};
+	
 
 	class Logger {
 	public:
@@ -66,7 +47,7 @@ namespace rsm {
 		}
 
 	private:
-		Logger() {}
+		Logger() = default;
 		static Logger& logger() {
 			static Logger logger;
 			return logger;
@@ -75,6 +56,5 @@ namespace rsm {
 	private:
 		std::vector<LogDevice::Ptr> m_logDevices;
 	};
-
 }
 

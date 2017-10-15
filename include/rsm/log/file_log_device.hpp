@@ -20,35 +20,31 @@
 * 3. This notice may not be removed or altered from any source distribution.
 */
 
-#include "catch.hpp"
+#pragma once
 
-#include <rsm/log/logger.hpp>
-#include <rsm/log/stream_log_device.hpp>
-#include <rsm/log/file_log_device.hpp>
-
+#include <rsm/log/log_device.hpp>
 #include <fstream>
+#include <stdexcept>
 
-TEST_CASE("Testing logging", "[log]") {
+namespace rsm {
 	
-	/*SECTION("Stream Log Device") {
-		
-		rsm::Logger::addLogDevice(std::make_unique<rsm::StreamLogDevice>());
-		
-		rsm::Logger::log(rsm::LogLevel::Debug, "Test");		
+	class FileLogDevice
+		: public LogDevice {
 
-		REQUIRE(true);
-	}*/
+	public:
+		FileLogDevice(const std::string& fileName) {
+			m_file.open(fileName, std::ios::out | std::ios::trunc);
+			if(!m_file.is_open()) {
+				throw std::runtime_error("Impossible to create the log file");
+			}
+		}
 
-	SECTION("File Log Device") {
-		std::string logFileName = "log";
-		rsm::Logger::addLogDevice(std::make_unique<rsm::FileLogDevice>(logFileName));
+		void log(LogLevel level, const std::string& message) override {
+			m_file << "[" << logLevelToString(level) << "]" << message << "\n";
+		}
 
-		rsm::Logger::log(rsm::LogLevel::Debug, "Test");
-
-		std::ifstream stream;
-		stream.open(logFileName, std::ios::in);
-
-		REQUIRE(stream.is_open());
-	}
+	private:
+		std::ofstream m_file;
+	};
 
 }

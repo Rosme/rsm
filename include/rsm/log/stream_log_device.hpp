@@ -20,35 +20,19 @@
 * 3. This notice may not be removed or altered from any source distribution.
 */
 
-#include "catch.hpp"
+#pragma once
 
-#include <rsm/log/logger.hpp>
-#include <rsm/log/stream_log_device.hpp>
-#include <rsm/log/file_log_device.hpp>
+#include <rsm/log/log_device.hpp>
+#include <iostream>
 
-#include <fstream>
-
-TEST_CASE("Testing logging", "[log]") {
+namespace rsm {
 	
-	/*SECTION("Stream Log Device") {
-		
-		rsm::Logger::addLogDevice(std::make_unique<rsm::StreamLogDevice>());
-		
-		rsm::Logger::log(rsm::LogLevel::Debug, "Test");		
-
-		REQUIRE(true);
-	}*/
-
-	SECTION("File Log Device") {
-		std::string logFileName = "log";
-		rsm::Logger::addLogDevice(std::make_unique<rsm::FileLogDevice>(logFileName));
-
-		rsm::Logger::log(rsm::LogLevel::Debug, "Test");
-
-		std::ifstream stream;
-		stream.open(logFileName, std::ios::in);
-
-		REQUIRE(stream.is_open());
-	}
+	class StreamLogDevice
+		: public LogDevice {
+	public:
+		void log(LogLevel level, const std::string& message) override {
+			std::cout << "[" << logLevelToString(level) << "]" << message << "\n";
+		}
+	};
 
 }
