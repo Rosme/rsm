@@ -34,6 +34,20 @@ TEST_CASE("Testing Any", "[any]") {
         REQUIRE(!anyObject.isValid());
     }
 
+    SECTION("Integer Const Any") {
+        const rsm::Any anyInteger(1);
+
+        REQUIRE(anyInteger.isValid());
+        REQUIRE(anyInteger.get<int>() == 1);
+    }
+
+    SECTION("String Const Any") {
+        const rsm::Any anyString(std::string("test"));
+
+        REQUIRE(anyString.isValid());
+        REQUIRE(anyString.get<std::string>() == "test");
+    }
+
     SECTION("Integer Any") {
         rsm::Any anyInteger(1);
 
