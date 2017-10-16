@@ -155,6 +155,20 @@ namespace rsm {
         }
 
         ///////////////////////////////////////////////////////////
+        /// \brief Const reference to the stored content
+        ///
+        /// Returns a const reference to the content stored in the object
+        /// This is done through a templated cast
+        /// Note: Giving a wrong template will result in undefined behavior
+        ///
+        /// \return Const reference to the content
+        ////////////////////////////////////////////////////////////
+        template<class Type>
+        const Type& get() const {
+            return reinterpret_cast<Impl<const Type>*>(m_holder.get())->val;
+        }
+
+        ///////////////////////////////////////////////////////////
         /// \brief Reference to the stored content
         ///
         /// Returns a reference to the content stored in the object
@@ -164,7 +178,7 @@ namespace rsm {
         /// \return Reference to the content
         ////////////////////////////////////////////////////////////
         template<class Type>
-        Type& get() const {
+        Type& get() {
             return reinterpret_cast<Impl<Type>*>(m_holder.get())->val;
         }
 
