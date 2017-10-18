@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2017 Jean-Sébastien Fauteux
+* Copyright (c) 2017 Jean-Sï¿½bastien Fauteux
 *
 * This software is provided 'as-is', without any express or implied warranty.
 * In no event will the authors be held liable for any damages arising from
@@ -27,17 +27,9 @@
 #include <rsm/log/file_log_device.hpp>
 
 #include <fstream>
+#include <string>
 
 TEST_CASE("Testing logging", "[log]") {
-	
-	/*SECTION("Stream Log Device") {
-		
-		rsm::Logger::addLogDevice(std::make_unique<rsm::StreamLogDevice>());
-		
-		rsm::Logger::log(rsm::LogLevel::Debug, "Test");		
-
-		REQUIRE(true);
-	}*/
 
 	SECTION("File Log Device") {
 		std::string logFileName = "log";
@@ -49,6 +41,105 @@ TEST_CASE("Testing logging", "[log]") {
 		stream.open(logFileName, std::ios::in);
 
 		REQUIRE(stream.is_open());
+	}
+
+}
+
+TEST_CASE("Log Level", "[log]") {
+
+	SECTION("Debug") {
+		std::string logFileName = "log";
+		
+		rsm::Logger::addLogDevice(std::make_unique<rsm::FileLogDevice>(logFileName));
+
+		rsm::Logger::debug("Test");
+		
+		rsm::Logger::resetLogDevices();
+
+		std::ifstream stream;
+		stream.open(logFileName, std::ios::in);
+
+		REQUIRE(stream.is_open());
+		std::string content;
+		std::getline(stream, content);
+		INFO(content)
+		REQUIRE(content.find("Debug") != std::string::npos);
+	}
+
+	SECTION("Info") {
+		std::string logFileName = "log";
+		
+		rsm::Logger::addLogDevice(std::make_unique<rsm::FileLogDevice>(logFileName));
+
+		rsm::Logger::info("Test");
+		
+		rsm::Logger::resetLogDevices();
+
+		std::ifstream stream;
+		stream.open(logFileName, std::ios::in);
+
+		REQUIRE(stream.is_open());
+		std::string content;
+		std::getline(stream, content);
+		INFO(content)
+		REQUIRE(content.find("Info") != std::string::npos);
+	}
+
+	SECTION("Warning") {
+		std::string logFileName = "log";
+		
+		rsm::Logger::addLogDevice(std::make_unique<rsm::FileLogDevice>(logFileName));
+
+		rsm::Logger::warning("Test");
+		
+		rsm::Logger::resetLogDevices();
+
+		std::ifstream stream;
+		stream.open(logFileName, std::ios::in);
+
+		REQUIRE(stream.is_open());
+		std::string content;
+		std::getline(stream, content);
+		INFO(content)
+		REQUIRE(content.find("Warning") != std::string::npos);
+	}
+
+	SECTION("Critical") {
+		std::string logFileName = "log";
+		
+		rsm::Logger::addLogDevice(std::make_unique<rsm::FileLogDevice>(logFileName));
+
+		rsm::Logger::critical("Test");
+		
+		rsm::Logger::resetLogDevices();
+
+		std::ifstream stream;
+		stream.open(logFileName, std::ios::in);
+
+		REQUIRE(stream.is_open());
+		std::string content;
+		std::getline(stream, content);
+		INFO(content)
+		REQUIRE(content.find("Critical") != std::string::npos);
+	}
+
+	SECTION("Error") {
+		std::string logFileName = "log";
+		
+		rsm::Logger::addLogDevice(std::make_unique<rsm::FileLogDevice>(logFileName));
+
+		rsm::Logger::error("Test");
+		
+		rsm::Logger::resetLogDevices();
+
+		std::ifstream stream;
+		stream.open(logFileName, std::ios::in);
+
+		REQUIRE(stream.is_open());
+		std::string content;
+		std::getline(stream, content);
+		INFO(content)
+		REQUIRE(content.find("Error") != std::string::npos);
 	}
 
 }

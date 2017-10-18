@@ -28,8 +28,6 @@
 
 namespace rsm {
 	
-	
-
 	class Logger {
 	public:
 		Logger(const Logger&) = delete;
@@ -46,6 +44,34 @@ namespace rsm {
 			}
 		}
 
+		template<class T>
+		static void debug(const T& data) {
+			log(LogLevel::Debug, data);
+		}
+
+		template<class T>
+		static void info(const T& data) {
+			log(LogLevel::Info, data);
+		}
+
+		template<class T>
+		static void warning(const T& data) {
+			log(LogLevel::Warning, data);
+		}
+
+		template<class T>
+		static void critical(const T& data) {
+			log(LogLevel::Critical, data);
+		}
+
+		template<class T>
+		static void error(const T& data) {
+			log(LogLevel::Error, data);
+		}
+
+		static void resetLogDevices() {
+			logger().m_logDevices.clear();
+		}
 	private:
 		Logger() = default;
 		static Logger& logger() {
