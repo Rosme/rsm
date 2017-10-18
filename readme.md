@@ -19,8 +19,9 @@ Develop: [![Build Status](https://img.shields.io/travis/Rosme/rsm/develop.svg?la
     * Allow declaration of custom configuration type
 * Logger
     * Easy to use logger
-    * Macros to simplify usage
-    * Log to file and stdout
+    * Two provided log device:
+        * To stdout
+        * To file
 * Matrix
     * Matrix class for easier usage of matrix
     * Safe and easy to use with operator()
