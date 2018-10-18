@@ -179,6 +179,14 @@ TEST_CASE("Log Streaming", "[log]") {
         std::string content;
         std::getline(stream, content);
         INFO(content)
-        REQUIRE(content.find("Test Single") != std::string::npos);
+        REQUIRE(content.find("Test Multi 1") != std::string::npos);
+        
+        std::getline(stream, content);
+        INFO(content)
+        REQUIRE(content.find("Test Multi 2") != std::string::npos);
+        
+        std::getline(stream, content);
+        INFO(content)
+        REQUIRE(content.find("3") != std::string::npos);
     }
 }
