@@ -34,53 +34,104 @@ namespace rsm {
 		Logger& operator=(const Logger&) = delete;
 
 		static void addLogDevice(LogDevice::Ptr device) {
-			logger().m_logDevices.emplace_back(std::move(device));
+			loggerImpl().m_logDevices.emplace_back(std::move(device));
 		}
 
-		template<class T>
-		static void log(LogLevel level, const T& data) {
-			for(auto& device : logger().m_logDevices) {
-				device->log(level, data);
-			}
+        template<int>
+        static void log(int data) {
+            log(loggerImpl().m_currentLevel, data);
+        }
+        
+        template<class T>
+        static void log(const T& data) {
+            log(loggerImpl().m_currentLevel, data);
+        }
+        
+        
+        template<int>
+        static void log(LogLevel level, int data) {
+            for(auto& device : loggerImpl().m_logDevices) {
+                device->log(level, std::to_string(data));
+            }
+        }
+        
+        template<class T>
+        static void log(LogLevel level, const T& data) {
+            for(auto& device : loggerImpl().m_logDevices) {
+                device->log(level, data);
+            }
+        }
+
+//        template<class T>
+		static Logger& debug() {
+            auto& logger = loggerImpl();
+            logger.m_currentLevel = LogLevel::Debug;
+            return logger;
 		}
 
-		template<class T>
-		static void debug(const T& data) {
-			log(LogLevel::Debug, data);
+//        template<class T>
+		static Logger& info() {
+            auto& logger = loggerImpl();
+            logger.m_currentLevel = LogLevel::Info;
+            return logger;
 		}
 
-		template<class T>
-		static void info(const T& data) {
-			log(LogLevel::Info, data);
+//        template<class T>
+		static Logger& warning() {
+            auto& logger = loggerImpl();
+            logger.m_currentLevel = LogLevel::Warning;
+            return logger;
 		}
 
-		template<class T>
-		static void warning(const T& data) {
-			log(LogLevel::Warning, data);
+//        template<class T>
+		static Logger& critical() {
+            auto& logger = loggerImpl();
+            logger.m_currentLevel = LogLevel::Critical;
+            return logger;
 		}
 
-		template<class T>
-		static void critical(const T& data) {
-			log(LogLevel::Critical, data);
-		}
-
-		template<class T>
-		static void error(const T& data) {
-			log(LogLevel::Error, data);
+//        template<class T>
+		static Logger& error() {
+            auto& logger = loggerImpl();
+            logger.m_currentLevel = LogLevel::Error;
+            return logger;
 		}
 
 		static void resetLogDevices() {
-			logger().m_logDevices.clear();
+			loggerImpl().m_logDevices.clear();
 		}
+     
+        template<int>
+        Logger& operator<<(int data) const
+        {
+            auto& logger = loggerImpl();
+            logger.log(data);
+            return logger;
+        }
+        
+        template<class T>
+        Logger& operator<<(const T& data) const
+        {
+            auto& logger = loggerImpl();
+            logger.log(data);
+            return logger;
+        }
+        
 	private:
 		Logger() = default;
-		static Logger& logger() {
+		static Logger& loggerImpl() {
 			static Logger logger;
 			return logger;
 		}
 
-	private:
+    private:
 		std::vector<LogDevice::Ptr> m_logDevices;
+        LogLevel m_currentLevel;
+    
+        friend Logger& logger();
 	};
+  
+    Logger& logger() {
+      return Logger::loggerImpl();
+    }
 }
-
