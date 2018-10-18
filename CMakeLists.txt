@@ -73,6 +73,7 @@ set(RSM_LOG_INC
 	)
 
 SET(RSM_INC
+    ${HEADER}/rsm/cmdline.hpp
     ${HEADER}/rsm/config.hpp
     ${HEADER}/rsm/matrix.hpp
     ${HEADER}/rsm/matrix.inl
