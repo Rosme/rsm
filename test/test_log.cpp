@@ -32,7 +32,7 @@
 TEST_CASE("Testing logging", "[log]") {
 
 	SECTION("File Log Device") {
-		std::string logFileName = "log";
+		std::string logFileName = "log-test";
 		rsm::Logger::addLogDevice(std::make_unique<rsm::FileLogDevice>(logFileName));
 
 		rsm::Logger::log(rsm::LogLevel::Debug, "Test");
@@ -48,11 +48,11 @@ TEST_CASE("Testing logging", "[log]") {
 TEST_CASE("Log Level", "[log]") {
 
 	SECTION("Debug") {
-		std::string logFileName = "log";
+		std::string logFileName = "log-debug";
 		
 		rsm::Logger::addLogDevice(std::make_unique<rsm::FileLogDevice>(logFileName));
 
-		rsm::Logger::debug("Test");
+		rsm::Logger::debug() << "Test";
 		
 		rsm::Logger::resetLogDevices();
 
@@ -67,11 +67,11 @@ TEST_CASE("Log Level", "[log]") {
 	}
 
 	SECTION("Info") {
-		std::string logFileName = "log";
+		std::string logFileName = "log-info";
 		
 		rsm::Logger::addLogDevice(std::make_unique<rsm::FileLogDevice>(logFileName));
 
-		rsm::Logger::info("Test");
+		rsm::Logger::info() << "Test";
 		
 		rsm::Logger::resetLogDevices();
 
@@ -86,11 +86,11 @@ TEST_CASE("Log Level", "[log]") {
 	}
 
 	SECTION("Warning") {
-		std::string logFileName = "log";
+		std::string logFileName = "log-warning";
 		
 		rsm::Logger::addLogDevice(std::make_unique<rsm::FileLogDevice>(logFileName));
 
-		rsm::Logger::warning("Test");
+		rsm::Logger::warning() << "Test";
 		
 		rsm::Logger::resetLogDevices();
 
@@ -105,11 +105,11 @@ TEST_CASE("Log Level", "[log]") {
 	}
 
 	SECTION("Critical") {
-		std::string logFileName = "log";
+		std::string logFileName = "log-critical";
 		
 		rsm::Logger::addLogDevice(std::make_unique<rsm::FileLogDevice>(logFileName));
 
-		rsm::Logger::critical("Test");
+		rsm::Logger::critical() << "Test";
 		
 		rsm::Logger::resetLogDevices();
 
@@ -124,11 +124,11 @@ TEST_CASE("Log Level", "[log]") {
 	}
 
 	SECTION("Error") {
-		std::string logFileName = "log";
+		std::string logFileName = "log-error";
 		
 		rsm::Logger::addLogDevice(std::make_unique<rsm::FileLogDevice>(logFileName));
 
-		rsm::Logger::error("Test");
+		rsm::Logger::error() << "Test";
 		
 		rsm::Logger::resetLogDevices();
 
@@ -141,5 +141,44 @@ TEST_CASE("Log Level", "[log]") {
 		INFO(content)
 		REQUIRE(content.find("Error") != std::string::npos);
 	}
+    
+}
 
+TEST_CASE("Log Streaming", "[log]") {
+    
+    SECTION("Single item stream") {
+        std::string logFileName = "log-stream-single";
+        
+        rsm::Logger::addLogDevice(std::make_unique<rsm::FileLogDevice>(logFileName));
+        
+        rsm::Logger::debug() << "Test Single";
+        rsm::Logger::resetLogDevices();
+        
+        std::ifstream stream;
+        stream.open(logFileName, std::ios::in);
+        
+        REQUIRE(stream.is_open());
+        std::string content;
+        std::getline(stream, content);
+        INFO(content)
+        REQUIRE(content.find("Test Single") != std::string::npos);
+    }
+    
+    SECTION("Single item stream") {
+        std::string logFileName = "log-stream-single";
+        
+        rsm::Logger::addLogDevice(std::make_unique<rsm::FileLogDevice>(logFileName));
+        
+        rsm::Logger::debug() << "Test Multi 1" << "Test Multi 2" << 3;
+        rsm::Logger::resetLogDevices();
+        
+        std::ifstream stream;
+        stream.open(logFileName, std::ios::in);
+        
+        REQUIRE(stream.is_open());
+        std::string content;
+        std::getline(stream, content);
+        INFO(content)
+        REQUIRE(content.find("Test Single") != std::string::npos);
+    }
 }
