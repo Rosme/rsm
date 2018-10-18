@@ -46,6 +46,7 @@ namespace rsm {
         , m_height(other.m_height) {
         
         if(m_width > 0 && m_height > 0) {
+            delete[] m_data;
             m_data = new T[m_width*m_height]();
             std::copy(other.m_data, other.m_data + m_width*m_height, m_data);
         }
@@ -53,6 +54,11 @@ namespace rsm {
     
     template<class T>
     Matrix<T>::Matrix(Matrix&& other) {
+        if(m_data && m_width > 0 && m_height > 0)
+        {
+            delete[] m_data;
+        }
+      
         m_data = std::move(other.m_data);
         m_width = std::move(other.m_width);
         m_height = std::move(other.m_height);

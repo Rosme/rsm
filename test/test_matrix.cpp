@@ -136,8 +136,7 @@ TEST_CASE("Testing Matrix", "[matrix]") {
     }
     
     SECTION("Move construction integer matrix") {
-        rsm::Matrix<int> matrix(5, 10, 7);
-        rsm::Matrix<int> moved(std::move(matrix));
+        rsm::Matrix<int> moved(rsm::Matrix<int>(5, 10, 7));
         
         REQUIRE(moved.width() == 5);
         REQUIRE(moved.height() == 10);
@@ -145,10 +144,9 @@ TEST_CASE("Testing Matrix", "[matrix]") {
     }
     
     SECTION("Move assignment integer matrix") {
-        rsm::Matrix<int> matrix(5, 10, 7);
         rsm::Matrix<int> moved;
         
-        moved = std::move(matrix);
+        moved = rsm::Matrix<int>(5, 10, 7);
         
         REQUIRE(moved.width() == 5);
         REQUIRE(moved.height() == 10);
@@ -156,8 +154,7 @@ TEST_CASE("Testing Matrix", "[matrix]") {
     }
     
     SECTION("Move construction string matrix") {
-        rsm::Matrix<std::string> matrix(5, 10, "Test");
-        rsm::Matrix<std::string> moved(std::move(matrix));
+        rsm::Matrix<std::string> moved(rsm::Matrix<std::string>(5, 10, "Test"));
         
         REQUIRE(moved.width() == 5);
         REQUIRE(moved.height() == 10);
@@ -165,10 +162,9 @@ TEST_CASE("Testing Matrix", "[matrix]") {
     }
     
     SECTION("Move assignment string matrix") {
-        rsm::Matrix<std::string> matrix(5, 10, "Test");
         rsm::Matrix<std::string> moved;
         
-        moved = std::move(matrix);
+        moved = rsm::Matrix<std::string>(5, 10, "Test");
         
         REQUIRE(moved.width() == 5);
         REQUIRE(moved.height() == 10);
