@@ -26,14 +26,43 @@
 
 namespace rsm {
 
+    ////////////////////////////////////////////////////////////
+    /// \brief Message handler class to handle the messages
+    ///
+    /// This class needs to be inherited from and the function onMessage
+    /// needs to be overriden.
+    ///
+    ////////////////////////////////////////////////////////////
     class MessageHandler {
     public:
+        ////////////////////////////////////////////////////////////
+        /// \brief Default constructor
+        ///
+        ////////////////////////////////////////////////////////////
         MessageHandler() = default;
+        
+        ////////////////////////////////////////////////////////////
+        /// \brief Destructor
+        ///
+        ////////////////////////////////////////////////////////////
         virtual ~MessageHandler() = default;
 
         MessageHandler(const MessageHandler&) = delete;
         MessageHandler& operator=(const MessageHandler&) = delete;
 
+        ////////////////////////////////////////////////////////////
+        /// \brief Pure virtual function to override to handle incoming message
+        ///
+        /// This function is called by the dispatcher with the key to the message
+        /// and the corresponding message.
+        ///
+        /// \param key Key of the message when dispatched
+        /// \param message Message dispatched
+        ///
+        /// \see MessageDispatcher
+        /// \see AsyncMessageDispatcher
+        ///
+        ////////////////////////////////////////////////////////////
         virtual void onMessage(const std::string& key, const rsm::Message& message) = 0;
     };
 

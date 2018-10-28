@@ -33,8 +33,32 @@
 
 namespace rsm {
 
+    ////////////////////////////////////////////////////////////
+    /// \brief Asynchronous message dispatcher
+    ///
+    /// This message dispatcher uses an asynchronous model, where
+    /// once started will dispatch the message on a different thread.
+    /// The dispatcher can be started and stopped at any time. At creation,
+    /// it does not run.
+    ///
+    /// The dispatcher make use of rsm::MessageHandler objects to know
+    /// to whom a message should be dispatched, based on a Key-Handler system.
+    ///
+    /// For example, you may want a rsm::MessageHandler that listen only to "quit" key
+    /// and another one that listen to all "position" key. Allowing multiple handler to
+    /// handle different thing in a more flexible way.
+    ///
+    /// It is important to unregister the handler before an handler lifetime is over.
+    /// If this is not done, it is considered undefined behavior.
+    ///
+    /// Messages are held in a FIFO queue.
+    ////////////////////////////////////////////////////////////
     class AsyncMessageDispatcher {
     public:
+        ////////////////////////////////////////////////////////////
+        /// \brief Default constructor
+        ///
+        ////////////////////////////////////////////////////////////
         AsyncMessageDispatcher() {
             m_running = false;
         }
@@ -42,11 +66,26 @@ namespace rsm {
         AsyncMessageDispatcher(const AsyncMessageDispatcher&) = delete;
         AsyncMessageDispatcher& operator=(const AsyncMessageDispatcher&) = delete;
 
+        ////////////////////////////////////////////////////////////
+        /// \brief Register an handler for a specific key
+        ///
+        /// \param key Key corresponding to the handler for message dispatching
+        /// \param handler A rsm::MessageHandler to handle the messages dispatched
+        ///        with the key
+        ///
+        ////////////////////////////////////////////////////////////
         void registerHandler(const std::string& key, rsm::MessageHandler& handler) {
             std::lock_guard<std::mutex> lock(m_mutex);
             m_handlers.emplace(std::make_pair(key, &handler));
         }
 
+        ////////////////////////////////////////////////////////////
+        /// \brief Unregister an handler for a specific key
+        ///
+        /// \param key Key to unregister an handler
+        /// \param handler Handler to unregister
+        ///
+        ////////////////////////////////////////////////////////////
         void unregisterHandler(const std::string& key, rsm::MessageHandler& handler) {
             std::lock_guard<std::mutex> lock(m_mutex);
             auto range = m_handlers.equal_range(key);
@@ -59,17 +98,35 @@ namespace rsm {
             }
         }
 
+        ////////////////////////////////////////////////////////////
+        /// \brief Push a message on the queue
+        ///
+        /// Note that once a message is pushed, it is impossible to unpush it.
+        ///
+        /// \param key Key of the message for dispatching
+        /// \param message Message to push and dispatch
+        ///
+        ////////////////////////////////////////////////////////////
         void pushMessage(const std::string& key, const rsm::Message& message = Message()) {
             std::lock_guard<std::mutex> lock(m_mutex);
             m_messages.emplace(std::make_pair(key, message));
         }
 
+        ////////////////////////////////////////////////////////////
+        /// \brief Start dispatching the messages
+        ///
+        /// Starts the second thread onto which the dispatching is occuring
+        ////////////////////////////////////////////////////////////
         void startDispatching() {
             m_running = true;
             m_thread = std::thread(&AsyncMessageDispatcher::dispatch, this);
             m_thread.detach();
         }
 
+        ////////////////////////////////////////////////////////////
+        /// \brief Stop dispatching the messages
+        ///
+        ////////////////////////////////////////////////////////////
         void stopDispatching() {
             m_running = false;
         }

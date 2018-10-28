@@ -30,17 +30,55 @@
 
 namespace rsm {
 
+    ////////////////////////////////////////////////////////////
+    /// \brief Synchronous message dispatcher
+    ///
+    /// This message dispatcher use a synchronous model, dispatching
+    /// the messages only when dispatch is being called. As a very light
+    /// and easy system, it dispatches all message before returning.
+    ///
+    /// The dispatcher make use of rsm::MessageHandler objects to know
+    /// to whom a message should be dispatched, based on a Key-Handler system.
+    ///
+    /// For example, you may want a rsm::MessageHandler that listen only to "quit" key
+    /// and another one that listen to all "position" key. Allowing multiple handler to
+    /// handle different thing in a more flexible way.
+    ///
+    /// It is important to unregister the handler before an handler lifetime is over.
+    /// If this is not done, it is considered undefined behavior.
+    ///
+    /// Messages are held in a FIFO queue.
+    ////////////////////////////////////////////////////////////
     class MessageDispatcher {
     public:
+        ////////////////////////////////////////////////////////////
+        /// \brief Default constructor
+        ///
+        ////////////////////////////////////////////////////////////
         MessageDispatcher() = default;
 
         MessageDispatcher(const MessageDispatcher&) = delete;
         MessageDispatcher& operator=(const MessageDispatcher&) = delete;
 
+        ////////////////////////////////////////////////////////////
+        /// \brief Register an handler for a specific key
+        ///
+        /// \param key Key corresponding to the handler for message dispatching
+        /// \param handler A rsm::MessageHandler to handle the messages dispatched
+        ///        with the key
+        ///
+        ////////////////////////////////////////////////////////////
         void registerHandler(const std::string& key, rsm::MessageHandler& handler) {
             m_handlers.emplace(std::make_pair(key, &handler));
         }
 
+        ////////////////////////////////////////////////////////////
+        /// \brief Unregister an handler for a specific key
+        ///
+        /// \param key Key to unregister an handler
+        /// \param handler Handler to unregister
+        ///
+        ////////////////////////////////////////////////////////////
         void unregisterHandler(const std::string& key, rsm::MessageHandler& handler) {
             auto range = m_handlers.equal_range(key);
             for(auto it = range.first; it != range.second;) {
@@ -52,10 +90,23 @@ namespace rsm {
             }
         }
 
+        ////////////////////////////////////////////////////////////
+        /// \brief Push a message on the queue
+        ///
+        /// Note that once a message is pushed, it is impossible to unpush it.
+        ///
+        /// \param key Key of the message for dispatching
+        /// \param message Message to push and dispatch
+        ///
+        ////////////////////////////////////////////////////////////
         void pushMessage(const std::string& key, const rsm::Message& message = Message()) {
             m_messages.emplace(std::make_pair(key, message));
         }
 
+        ////////////////////////////////////////////////////////////
+        /// \brief Dispatch the queued up messages and remove them from the queue
+        ///
+        ////////////////////////////////////////////////////////////
         void dispatch() {
             while(!m_messages.empty()) {
                 auto messagePair = m_messages.front();
