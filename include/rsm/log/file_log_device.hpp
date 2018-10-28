@@ -28,10 +28,25 @@
 
 namespace rsm {
 	
-	class FileLogDevice
+    ////////////////////////////////////////////////////////////
+    /// \brief Log device for logging into files
+    ///
+    /// This class act as a log device that will log the data into
+    /// a specified file.
+    ////////////////////////////////////////////////////////////
+	class FileLogDevice final
 		: public LogDevice {
 
 	public:
+        ////////////////////////////////////////////////////////////
+        /// \brief Constructor with filename parameter
+        ///
+        /// This constructor will attempt to create the log file. If
+        /// the file already exist, it will attempt to open it and
+        /// truncate the content of the file.
+        ///
+        /// \param fileName Path to the log file
+        ////////////////////////////////////////////////////////////
 		FileLogDevice(const std::string& fileName) {
 			m_file.open(fileName, std::ios::out | std::ios::trunc);
 			if(!m_file.is_open()) {
@@ -39,6 +54,12 @@ namespace rsm {
 			}
 		}
 
+        ////////////////////////////////////////////////////////////
+        /// \brief Overriden function that log the message into the file
+        ///
+        /// \param level Log level
+        /// \param message Message to log
+        ////////////////////////////////////////////////////////////
 		void log(LogLevel level, const std::string& message) override {
 			m_file << "[" << logLevelToString(level) << "]" << message << "\n";
 		}

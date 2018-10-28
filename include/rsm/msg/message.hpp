@@ -27,17 +27,49 @@
 
 namespace rsm {
 
-    class Message {
+    ////////////////////////////////////////////////////////////
+    /// \brief Message class wrapping an object for easy moving
+    ///
+    /// Using type-erasure class rsm::Any, the Message class wraps any object,
+    /// allowing to move the object anywhere easily.
+    ///
+    /// \see Any
+    ////////////////////////////////////////////////////////////
+    class Message final {
     public:
+        ////////////////////////////////////////////////////////////
+        /// \brief Default constructor
+        ///
+        ////////////////////////////////////////////////////////////
         Message() {}
 
+        ////////////////////////////////////////////////////////////
+        /// \brief Templated constructor for constructing a Message with
+        ///        any kind of object
+        ///
+        /// \param content Any object that needs to be wrapped in the message.
+        ///
+        ////////////////////////////////////////////////////////////
         template<class T>
-        Message(T t)
-            : m_content(t) {}
+        Message(T content)
+            : m_content(content) {}
 
+        ////////////////////////////////////////////////////////////
+        /// \brief Specialised constructor for strings of const char*
+        ///
+        /// This constructor will actually transform the const char* in
+        /// a std::string.
+        ///
+        /// \param content String to wrap
+        ///
+        ////////////////////////////////////////////////////////////
         Message(const char* content)
             : m_content(std::string(content)) {}
 
+        ////////////////////////////////////////////////////////////
+        /// \brief Return a reference to the content of wrapped within the message
+        ///
+        /// \return The rsm::Any object containing the object
         const rsm::Any& getContent() const {
             return m_content;
         }
