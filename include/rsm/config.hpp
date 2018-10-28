@@ -45,6 +45,17 @@ namespace rsm {
 
     class Config;
 
+    ///////////////////////////////////////////////////////////
+    /// \brief Descriptor class to handle the load and save of a
+    ///        config file with a specific format
+    ///
+    /// This class is abstract so specialisation can be done
+    /// within class inheriting this interface.
+    ///
+    /// A class inheriting from ConfigFileDescriptor must
+    /// override the load and save function.
+    ///
+    /////////////////////////////////////////////////////////////
     class ConfigFileDescriptor {
     public:
         using Ptr = std::unique_ptr<ConfigFileDescriptor>;
@@ -55,15 +66,36 @@ namespace rsm {
         ConfigFileDescriptor& operator=(const ConfigFileDescriptor&) = delete;
         virtual ~ConfigFileDescriptor() = default;
 
+        ////////////////////////////////////////////////////////////
+        /// \brief Static function to gain access to the default file descriptor
+        ///
+        /// \return A pointer to the default file descriptor
+        ///
+        ////////////////////////////////////////////////////////////
         static ConfigFileDescriptor::Ptr getDefaultDescriptor();
 
+        ////////////////////////////////////////////////////////////
+        /// \brief Pure virtual function to override that manage loading a config file
+        ///
+        /// \param config Configuration object to store the configuration in
+        /// \param configFile Path to the configuration file to load
+        ///
+        ////////////////////////////////////////////////////////////
         virtual void load(Config& config, const std::string& configFile) = 0;
+        
+        ////////////////////////////////////////////////////////////
+        /// \brief Pure virtual function to override that manage saving a config file
+        ///
+        /// \param config Configuration object that the configuration is being stored in
+        /// \param configFile Path to the configuration file to save
+        ///
+        ////////////////////////////////////////////////////////////
         virtual void save(Config& config, const std::string& configFile) const = 0;
     };
 
-    ////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////
     /// \brief Config class to handle configuration file with Key/Value pair
-    ///		   
+    ///           
     /// The class allows to load from a file all key value. A key must be a string.
     /// A value can be a string, an integer, an unsigned integer or a float.
     ///
@@ -74,7 +106,7 @@ namespace rsm {
     /// When saving the config file, the file is overwritten with all values stored in
     /// the configuration class.
     ///
-    ////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////
     class Config{
     public:
         using Key = std::string;
@@ -326,9 +358,25 @@ namespace rsm {
         ConfigFileDescriptor::Ptr m_fileDescriptor;
     };
 
+    ////////////////////////////////////////////////////////////
+    /// \brief Default descriptor for config files
+    ///
+    /// This class uses the default scheme Key=Value.
+    /// Any entry starting with ; or # is ignored.
+    /// If a Key is already set, the old value will be overriden
+    /// with the new value.
+    ///
+    ////////////////////////////////////////////////////////////
     class DefaultFileDescriptor
         : public ConfigFileDescriptor {
 
+        ////////////////////////////////////////////////////////////
+        /// \brief Load the configuration from a file
+        ///
+        /// \param config Configuration object to store the configuration in
+        /// \param configFile Configuration file containing the configuration to load
+        ///
+        ////////////////////////////////////////////////////////////
         void load(Config& config, const std::string& configFile) {
             std::ifstream file;
 
@@ -357,6 +405,13 @@ namespace rsm {
             }
         }
 
+        ////////////////////////////////////////////////////////////
+        /// \brief Save the configuration in a file
+        ///
+        /// \param config Configuration object storing the configuration to save
+        /// \param configFile Configuration file to save the configuration within
+        ///
+        ////////////////////////////////////////////////////////////
         void save(Config& config, const std::string& configFile) const {
             std::ofstream file;
 
