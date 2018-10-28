@@ -27,9 +27,19 @@
 
 namespace rsm {
 	
+    ////////////////////////////////////////////////////////////
+    /// \brief Log device that log to the default stdout stream
+    ///
+    ////////////////////////////////////////////////////////////
 	class StreamLogDevice
 		: public LogDevice {
 	public:
+        ////////////////////////////////////////////////////////////
+        /// \brief Overriden log function to log the data to stdout
+        ///
+        /// \param level Log level
+        /// \param message Message to log
+        ////////////////////////////////////////////////////////////
 		void log(LogLevel level, const std::string& message) override {
 			std::cout << "[" << logLevelToString(level) << "]" << message << "\n";
 		}

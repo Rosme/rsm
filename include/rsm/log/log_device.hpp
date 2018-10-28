@@ -27,6 +27,10 @@
 
 namespace rsm {
 	
+    ////////////////////////////////////////////////////////////
+    /// \brief Enum class of the log levels
+    ///
+    ////////////////////////////////////////////////////////////
 	enum class LogLevel {
 		None,
 		Debug,
@@ -36,6 +40,14 @@ namespace rsm {
 		Error
 	};
 
+    ////////////////////////////////////////////////////////////
+    /// \brief Utility function to return the string definition
+    ///        of the log levels
+    ///
+    /// \param level Log level to get the string version
+    ///
+    /// \return A string representing the log level
+    ////////////////////////////////////////////////////////////
 	std::string logLevelToString(LogLevel level) {
 		switch (level) {
 		case LogLevel::Debug:
@@ -53,12 +65,28 @@ namespace rsm {
 		}
 	}
 
+    ////////////////////////////////////////////////////////////
+    /// \brief Log device class
+    ///
+    /// This class needs to be inherited and the function log to be overriden.
+    /// It is the interface for the log device used by the logger.
+    ///
+    /// Inheriting class should define how the logging is done.
+    ////////////////////////////////////////////////////////////
 	class LogDevice {
 	public:
 		virtual ~LogDevice() = default;
 		using Ptr = std::unique_ptr<LogDevice>;
 
-
+        ////////////////////////////////////////////////////////////
+        /// \brief Pure virtual function called by the logger when logging
+        ///
+        /// This function is called by the logger and should do the logging
+        /// the way the log device want.
+        ///
+        /// \param level Log level of the log
+        /// \param message Message to be logged
+        ////////////////////////////////////////////////////////////
 		virtual void log(LogLevel level, const std::string& message) = 0;
 
 	protected:
