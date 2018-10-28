@@ -53,7 +53,7 @@ namespace rsm {
     ///
     /// Messages are held in a FIFO queue.
     ////////////////////////////////////////////////////////////
-    class AsyncMessageDispatcher {
+    class AsyncMessageDispatcher final {
     public:
         ////////////////////////////////////////////////////////////
         /// \brief Default constructor

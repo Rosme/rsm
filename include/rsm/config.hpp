@@ -107,7 +107,7 @@ namespace rsm {
     /// the configuration class.
     ///
     /////////////////////////////////////////////////////////////
-    class Config{
+    class Config final {
     public:
         using Key = std::string;
 
@@ -367,7 +367,7 @@ namespace rsm {
     /// with the new value.
     ///
     ////////////////////////////////////////////////////////////
-    class DefaultFileDescriptor
+    class DefaultFileDescriptor final
         : public ConfigFileDescriptor {
 
         ////////////////////////////////////////////////////////////

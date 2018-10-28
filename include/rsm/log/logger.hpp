@@ -47,7 +47,7 @@ namespace rsm {
     /// like such:
     /// rsm::Logger::debug() << "Logging data" << myObject;
     ////////////////////////////////////////////////////////////
-	class Logger {
+	class Logger final {
 	public:
 		Logger(const Logger&) = delete;
 		Logger& operator=(const Logger&) = delete;

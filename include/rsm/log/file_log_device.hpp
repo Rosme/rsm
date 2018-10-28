@@ -34,7 +34,7 @@ namespace rsm {
     /// This class act as a log device that will log the data into
     /// a specified file.
     ////////////////////////////////////////////////////////////
-	class FileLogDevice
+	class FileLogDevice final
 		: public LogDevice {
 
 	public:

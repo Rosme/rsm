@@ -33,7 +33,7 @@ namespace rsm {
     /// This class ensure type-erasure and allows to store any kind of data.
     /// Useful for storing different kind of data in a generic way
     ////////////////////////////////////////////////////////////
-    class Any {
+    class Any final {
     public:
         ////////////////////////////////////////////////////////////
         /// \brief Constructor

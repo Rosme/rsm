@@ -49,7 +49,7 @@ namespace rsm {
     ///
     /// Messages are held in a FIFO queue.
     ////////////////////////////////////////////////////////////
-    class MessageDispatcher {
+    class MessageDispatcher final {
     public:
         ////////////////////////////////////////////////////////////
         /// \brief Default constructor

@@ -31,7 +31,7 @@ namespace rsm {
     /// \brief Log device that log to the default stdout stream
     ///
     ////////////////////////////////////////////////////////////
-	class StreamLogDevice
+	class StreamLogDevice final
 		: public LogDevice {
 	public:
         ////////////////////////////////////////////////////////////
