@@ -20,4 +20,8 @@
 * 3. This notice may not be removed or altered from any source distribution.
 */
 
+////////////////////////////////////////////////////////////
+/// \brief Macro to declare that a variable is unused
+///
+////////////////////////////////////////////////////////////
 #define RSM_UNUSED(x) (void)x;
