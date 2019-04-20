@@ -6,8 +6,6 @@ rsm is a utility library that contains different utilities for different purpose
 
 Master: [![Build Status](https://img.shields.io/travis/Rosme/rsm/master.svg?label=linux+and+macOS)](https://travis-ci.org/Rosme/rsm) [![Build Status](https://img.shields.io/appveyor/ci/Rosme/rsm/master.svg?label=windows)](https://ci.appveyor.com/project/Rosme/rsm)
 
-Develop: [![Build Status](https://img.shields.io/travis/Rosme/rsm/develop.svg?label=linux+and+macOS)](https://travis-ci.org/Rosme/rsm) [![Build Status](https://img.shields.io/appveyor/ci/Rosme/rsm/develop.svg?label=windows)](https://ci.appveyor.com/project/Rosme/rsm)		
-
 ### Features
 
 * Any
