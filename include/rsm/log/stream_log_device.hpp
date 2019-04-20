@@ -34,6 +34,14 @@ namespace rsm {
 	class StreamLogDevice final
 		: public LogDevice {
 	public:
+		StreamLogDevice(bool syncWithStdio = false) {
+
+			if(syncWithStdio) {
+				std::cout.sync_with_stdio(false);
+				std::cout.tie(nullptr);
+			}
+
+		}
         ////////////////////////////////////////////////////////////
         /// \brief Overriden log function to log the data to stdout
         ///
